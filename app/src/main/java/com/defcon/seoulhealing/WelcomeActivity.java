@@ -24,9 +24,31 @@ public class WelcomeActivity extends AppCompatActivity {
         final TextView selectionText = findViewById(R.id.welcome_textview_selection);
 
         final ArrayList<String> locationArray = new ArrayList<>();
-        locationArray.add("강남");
-        locationArray.add("관악");
-        locationArray.add("구로");
+        locationArray.add("강남구");
+        locationArray.add("강동구");
+        locationArray.add("강서구");
+        locationArray.add("강북구");
+        locationArray.add("관악구");
+        locationArray.add("광진구");
+        locationArray.add("구로구");
+        locationArray.add("금천구");
+        locationArray.add("노원구");
+        locationArray.add("동대문구");
+        locationArray.add("도봉구");
+        locationArray.add("동작구");
+        locationArray.add("마포구");
+        locationArray.add("서대문구");
+        locationArray.add("성동구");
+        locationArray.add("성북구");
+        locationArray.add("서초구");
+        locationArray.add("송파구");
+        locationArray.add("영등포구");
+        locationArray.add("용산구");
+        locationArray.add("양천구");
+        locationArray.add("은평구");
+        locationArray.add("종로구");
+        locationArray.add("중구");
+        locationArray.add("중랑구");
 
         ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_spinner_dropdown_item,
