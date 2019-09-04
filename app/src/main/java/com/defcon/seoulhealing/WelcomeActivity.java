@@ -2,10 +2,12 @@ package com.defcon.seoulhealing;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -15,13 +17,17 @@ import java.util.ArrayList;
 
 public class WelcomeActivity extends AppCompatActivity {
     String locationSelect;
+    SharedPreferences prefs;
+    SharedPreferences.Editor ed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        final TextView selectionText = findViewById(R.id.welcome_textview_selection);
+        final Button doneBtn = findViewById(R.id.welcome_btn_done);
+        final Spinner locationSpinner = findViewById(R.id.welcome_spinner_location);
+        final TextView selectionText = findViewById(R.id.welcome_tv_selection);
 
         final ArrayList<String> locationArray = new ArrayList<>();
         locationArray.add("강남구");
@@ -52,8 +58,6 @@ public class WelcomeActivity extends AppCompatActivity {
         ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 locationArray);
-
-        final Spinner locationSpinner = findViewById(R.id.welcome_spinner_location);
         locationSpinner.setAdapter(locationArrayAdapter);
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -65,6 +69,17 @@ public class WelcomeActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+        doneBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+                ed = prefs.edit();
+                ed.putString("location", locationSelect);
+                ed.putBoolean("isFirst", false);
+                ed.apply();
+                finish();
             }
         });
     }

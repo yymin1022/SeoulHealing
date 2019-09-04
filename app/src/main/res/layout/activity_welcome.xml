@@ -20,6 +20,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="선택된 위치"
-        android:id="@+id/welcome_textview_selection"/>
+        android:id="@+id/welcome_tv_selection"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="완료"
+        android:id="@+id/welcome_btn_done"/>
 
 </LinearLayout>
