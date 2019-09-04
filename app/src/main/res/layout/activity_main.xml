@@ -10,4 +10,28 @@
         android:layout_height="wrap_content"
         android:text="현우없는 현우 팀" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Theme 1"
+        android:id="@+id/main_btn_theme1" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Theme 2"
+        android:id="@+id/main_btn_theme2" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Theme 3"
+        android:id="@+id/main_btn_theme3" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Theme 4"
+        android:id="@+id/main_btn_theme4" />
+
 </LinearLayout>
