@@ -44,6 +44,9 @@ public class ResultActivity extends AppCompatActivity {
 
         Intent themeIntent = getIntent();
         API_THEME = themeIntent.getStringExtra("THEME");
+        if(API_THEME == null || API_THEME.equals("")){
+            finish();
+        }
         API_URL = String.format(Locale.getDefault(), API_URL_DEFAULT, API_KEY, API_THEME);
         new getJSON().execute();
     }
