@@ -5,6 +5,9 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -71,11 +74,22 @@ public class ResultActivity extends AppCompatActivity{
 
                 itemData = new ArrayList<>();
 
-                for(int i=0; i<jArr.length(); i++){
+                for(int i = 0; i < jArr.length(); i++){
                     json = jArr.getJSONObject(i);
-                    itemData.add(new HealingListItem(null, json.getString("COT_VALUE_01"), json.getString("THM_THEME_NAME"), json.getString("COT_ADDR_FULL_NEW")));
-                }
 
+                    String healingTitle = json.getString("COT_CONTS_NAME");
+                    String healingTheme = json.getString("THM_THEME_NAME");
+                    String healingAddress = json.getString("COT_ADDR_FULL_NEW");
+                    String healingImageUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
+
+                    HttpURLConnection connection = (HttpURLConnection) new URL(healingImageUrl).openConnection();
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+
+                    Drawable healingImage = new BitmapDrawable(getResources(), BitmapFactory.decodeStream(input));
+
+                    itemData.add(new HealingListItem(healingImage, healingTitle, healingTheme, healingAddress));
+                }
                 listAdapter = new HealingListAdapter(ResultActivity.this, itemData);
             }catch(Exception e){
                 Log.e("Error", e.toString());
