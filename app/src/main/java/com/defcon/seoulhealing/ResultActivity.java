@@ -58,7 +58,7 @@ public class ResultActivity extends AppCompatActivity{
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            progressDialog.setTitle("Loading...");
+            progressDialog.setMessage("Loading...");
             progressDialog.show();
         }
 
