@@ -8,6 +8,13 @@ public class HealingListItem{
     private String addressStr;
     private String themeStr;
 
+    public HealingListItem(Drawable imageDrawable, String titleStr, String addressStr, String themeStr){
+        this.imageDrawable = imageDrawable;
+        this.titleStr = titleStr;
+        this.addressStr = addressStr;
+        this.themeStr = themeStr;
+    }
+
     public void setImageDrawable(Drawable icon){
         imageDrawable = icon;
     }

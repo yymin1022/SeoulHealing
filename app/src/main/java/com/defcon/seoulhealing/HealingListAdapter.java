@@ -12,14 +12,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class HealingListAdapter extends BaseAdapter{
-    private ArrayList<HealingListItem> listViewItemList = new ArrayList<HealingListItem>();
+    Context context;
+    ArrayList<HealingListItem> listViewItemList;
 
-    public HealingListAdapter(){
+    public HealingListAdapter(Context context, ArrayList<HealingListItem> listViewItemList){
+        this.context = context;
+        this.listViewItemList = listViewItemList;
     }
 
     @Override
     public int getCount(){
-        return listViewItemList.size();
+        return this.listViewItemList.size();
     }
 
     @Override
@@ -52,11 +55,11 @@ public class HealingListAdapter extends BaseAdapter{
 
     @Override
     public Object getItem(int position){
-        return listViewItemList.get(position);
+        return this.listViewItemList.get(position);
     }
 
     public void addItem(Drawable icon, String title, String address, String theme){
-        HealingListItem item = new HealingListItem();
+        HealingListItem item = new HealingListItem(icon, title, address, theme);
 
         item.setImageDrawable(icon);
         item.setTitleStr(title);
