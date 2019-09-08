@@ -79,8 +79,20 @@ public class ResultActivity extends AppCompatActivity{
 
                     String healingTitle = json.getString("COT_CONTS_NAME");
                     String healingTheme = json.getString("THM_THEME_NAME");
-                    String healingAddress = json.getString("COT_ADDR_FULL_NEW");
+                    String healingAddress;
+                    String healingAddressOld = json.getString("COT_ADDR_FULL_OLD");
+                    String healingAddressNew = json.getString("COT_ADDR_FULL_NEW");
                     String healingImageUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
+
+                    if(healingAddressNew.equals("")){
+                        if(healingAddressOld.equals("")){
+                            healingAddress = "등록된 주소가 없습니다.";
+                        }else{
+                            healingAddress = healingAddressOld;
+                        }
+                    }else{
+                        healingAddress = healingAddressNew;
+                    }
 
                     HttpURLConnection connection = (HttpURLConnection) new URL(healingImageUrl).openConnection();
                     connection.connect();
