@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,19 +28,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent themeIntent = new Intent(MainActivity.this, ResultActivity.class);
                 switch(view.getId()){
-                    case R.id.main_btn_theme1:
+                    case R.id.main_btn_travel:
                         Toast.makeText(MainActivity.this, "Theme 1", Toast.LENGTH_SHORT).show();
                         themeIntent.putExtra("THEME", "100200,100214,100162,100167");
                         break;
-                    case R.id.main_btn_theme2:
+                    case R.id.main_btn_child:
                         Toast.makeText(MainActivity.this, "Theme 2", Toast.LENGTH_SHORT).show();
                         themeIntent.putExtra("THEME", "100736,100362,100235,100273");
                         break;
-                    case R.id.main_btn_theme3:
+                    case R.id.main_btn_relax:
                         Toast.makeText(MainActivity.this, "Theme 3", Toast.LENGTH_SHORT).show();
                         themeIntent.putExtra("THEME", "100123,100211,100304,100569,100715,11107096,100891,11101181");
                         break;
-                    case R.id.main_btn_theme4:
+                    case R.id.main_btn_activity:
                         Toast.makeText(MainActivity.this, "Theme 4", Toast.LENGTH_SHORT).show();
                         themeIntent.putExtra("THEME", "100361,100769,100325");
                         break;
@@ -51,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        Button btnTheme1 = findViewById(R.id.main_btn_theme1);
-        Button btnTheme2 = findViewById(R.id.main_btn_theme2);
-        Button btnTheme3 = findViewById(R.id.main_btn_theme3);
-        Button btnTheme4 = findViewById(R.id.main_btn_theme4);
+        ImageButton btnTheme1 = findViewById(R.id.main_btn_travel);
+        ImageButton btnTheme2 = findViewById(R.id.main_btn_child);
+        ImageButton btnTheme3 = findViewById(R.id.main_btn_relax);
+        ImageButton btnTheme4 = findViewById(R.id.main_btn_activity);
         btnTheme1.setOnClickListener(onClickListener);
         btnTheme2.setOnClickListener(onClickListener);
         btnTheme3.setOnClickListener(onClickListener);
