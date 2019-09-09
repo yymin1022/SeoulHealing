@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,26 +9,38 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/main_image_location_map" />
+        android:id="@+id/main_image_location_map"
+        android:adjustViewBounds="true"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:gravity="center">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/main_image_location_logo" />
+                android:id="@+id/main_image_location_logo"
+                android:src="@drawable/ic_launcher_foreground"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/main_text_location" />
+                android:id="@+id/main_text_location"
+                android:text="관악구"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"/>
 
         </LinearLayout>
 
@@ -35,35 +48,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <ImageButton
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/main_btn_travel" />
+            android:id="@+id/main_btn_travel"
+            android:src="@drawable/ic_launcher_foreground"/>
 
         <ImageButton
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/main_btn_child" />
+            android:id="@+id/main_btn_child"
+            android:src="@drawable/ic_launcher_foreground"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <ImageButton
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/main_btn_relax" />
+            android:id="@+id/main_btn_relax"
+            android:src="@drawable/ic_launcher_foreground"/>
 
         <ImageButton
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/main_btn_activity" />
+            android:id="@+id/main_btn_activity"
+            android:src="@drawable/ic_launcher_foreground"/>
 
     </LinearLayout>
 

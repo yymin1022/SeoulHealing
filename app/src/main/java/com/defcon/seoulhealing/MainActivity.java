@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(themeIntent);
             }
         };
+
+        ImageView mapImage = findViewById(R.id.main_image_location_map);
+        mapImage.setImageResource(R.drawable.img_map_gwanak);
 
         ImageButton btnTheme1 = findViewById(R.id.main_btn_travel);
         ImageButton btnTheme2 = findViewById(R.id.main_btn_child);
