@@ -82,6 +82,7 @@ public class ResultActivity extends AppCompatActivity{
 
                     String healingTitle = json.getString("COT_CONTS_NAME");
                     String healingTheme = json.getString("THM_THEME_NAME");
+                    String healingThemeID = json.getString("COT_THEME_ID");
                     String healingAddress;
                     String healingAddressOld = json.getString("COT_ADDR_FULL_OLD");
                     String healingAddressNew = json.getString("COT_ADDR_FULL_NEW");
@@ -104,7 +105,7 @@ public class ResultActivity extends AppCompatActivity{
 
                     Drawable healingImage = new BitmapDrawable(getResources(), BitmapFactory.decodeStream(input));
 
-                    itemData.add(new HealingListItem(healingImage, healingTitle, healingTheme, healingAddress, healingContentID));
+                    itemData.add(new HealingListItem(healingImage, healingTitle, healingAddress, healingTheme, healingThemeID, healingContentID));
                 }
                 listAdapter = new HealingListAdapter(ResultActivity.this, itemData);
             }catch(Exception e){
@@ -120,6 +121,7 @@ public class ResultActivity extends AppCompatActivity{
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent healingDetailIntent = new Intent(ResultActivity.this, DetailActivity.class);
                     healingDetailIntent.putExtra("CONTENT_ID", itemData.get(i).getContentIDStr());
+                    healingDetailIntent.putExtra("THEME_ID", itemData.get(i).getThemeIDStr());
                     startActivity(healingDetailIntent);
                 }
             });
@@ -148,7 +150,9 @@ public class ResultActivity extends AppCompatActivity{
             e.printStackTrace();
         }finally{
             try{
-                bufreader.close();
+                if(bufreader != null) {
+                    bufreader.close();
+                }
                 urlConnection.disconnect();
             }catch(Exception e){
                 Log.e("Error", e.toString());

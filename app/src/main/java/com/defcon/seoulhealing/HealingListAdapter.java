@@ -58,13 +58,14 @@ public class HealingListAdapter extends BaseAdapter{
         return this.listViewItemList.get(position);
     }
 
-    public void addItem(Drawable icon, String title, String address, String theme, String contentID){
-        HealingListItem item = new HealingListItem(icon, title, address, theme, contentID);
+    public void addItem(Drawable icon, String title, String address, String theme, String themeID, String contentID){
+        HealingListItem item = new HealingListItem(icon, title, address, theme, themeID, contentID);
 
         item.setImageDrawable(icon);
         item.setAddressStr(address);
         item.setContentIDStr(contentID);
         item.setThemeStr(theme);
+        item.setThemeIDStr(themeID);
         item.setTitleStr(title);
 
         listViewItemList.add(item);

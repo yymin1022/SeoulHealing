@@ -7,13 +7,15 @@ public class HealingListItem{
     private String titleStr;
     private String addressStr;
     private String themeStr;
+    private String themeIDStr;
     private String contentIDStr;
 
-    public HealingListItem(Drawable imageDrawable, String titleStr, String addressStr, String themeStr, String contentIDStr){
+    public HealingListItem(Drawable imageDrawable, String titleStr, String addressStr, String themeStr, String themeIDStr, String contentIDStr){
         this.imageDrawable = imageDrawable;
         this.titleStr = titleStr;
         this.addressStr = addressStr;
         this.themeStr = themeStr;
+        this.themeIDStr = themeIDStr;
         this.contentIDStr = contentIDStr;
     }
 
@@ -28,6 +30,9 @@ public class HealingListItem{
     }
     public void setThemeStr(String theme){
         themeStr = theme;
+    }
+    public void setThemeIDStr(String themeID){
+        themeIDStr = themeID;
     }
     public void setTitleStr(String title){
         titleStr = title;
@@ -44,6 +49,9 @@ public class HealingListItem{
     }
     public String getThemeStr(){
         return this.themeStr;
+    }
+    public String getThemeIDStr(){
+        return this.themeIDStr;
     }
     public String getTitleStr(){
         return this.titleStr;
