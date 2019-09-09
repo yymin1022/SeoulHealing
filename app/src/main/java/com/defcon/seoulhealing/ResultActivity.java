@@ -12,6 +12,8 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -69,6 +71,7 @@ public class ResultActivity extends AppCompatActivity{
         protected String doInBackground(String... strs){
             try{
                 String jsonPage = getStringFromUrl(API_URL);
+
                 JSONObject json = new JSONObject(jsonPage);
                 JSONArray jArr = json.getJSONArray("body");
 
@@ -82,6 +85,7 @@ public class ResultActivity extends AppCompatActivity{
                     String healingAddress;
                     String healingAddressOld = json.getString("COT_ADDR_FULL_OLD");
                     String healingAddressNew = json.getString("COT_ADDR_FULL_NEW");
+                    String healingContentID = json.getString("COT_CONTS_ID");
                     String healingImageUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
 
                     if(healingAddressNew.equals("")){
@@ -100,7 +104,7 @@ public class ResultActivity extends AppCompatActivity{
 
                     Drawable healingImage = new BitmapDrawable(getResources(), BitmapFactory.decodeStream(input));
 
-                    itemData.add(new HealingListItem(healingImage, healingTitle, healingTheme, healingAddress));
+                    itemData.add(new HealingListItem(healingImage, healingTitle, healingTheme, healingAddress, healingContentID));
                 }
                 listAdapter = new HealingListAdapter(ResultActivity.this, itemData);
             }catch(Exception e){
@@ -111,6 +115,14 @@ public class ResultActivity extends AppCompatActivity{
         @Override
         protected void onPostExecute(String result){
             resultList.setAdapter(listAdapter);
+            resultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent healingDetailIntent = new Intent(ResultActivity.this, DetailActivity.class);
+                    healingDetailIntent.putExtra("CONTENT_ID", itemData.get(i).getContentIDStr());
+                    startActivity(healingDetailIntent);
+                }
+            });
             progressDialog.cancel();
         }
     }
