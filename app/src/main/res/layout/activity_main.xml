@@ -18,19 +18,19 @@
         android:layout_marginBottom="15dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="15dp"
             android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/main_image_location_logo"
                 android:src="@drawable/ic_launcher_foreground"/>
 
@@ -40,7 +40,7 @@
                 android:id="@+id/main_text_location"
                 android:text="관악구"
                 android:textColor="@android:color/black"
-                android:textSize="20dp"/>
+                android:textSize="40sp"/>
 
         </LinearLayout>
 
@@ -53,16 +53,20 @@
         android:gravity="center">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             android:id="@+id/main_btn_travel"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:background="@drawable/btn_main_travel"
+            android:adjustViewBounds="true"/>
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             android:id="@+id/main_btn_child"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:background="@drawable/btn_main_withkids"
+            android:adjustViewBounds="true"/>
 
     </LinearLayout>
 
@@ -73,16 +77,20 @@
         android:gravity="center">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             android:id="@+id/main_btn_relax"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:background="@drawable/btn_main_coffee"
+            android:adjustViewBounds="true"/>
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
             android:id="@+id/main_btn_activity"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:background="@drawable/btn_main_activity"
+            android:adjustViewBounds="true"/>
 
     </LinearLayout>
 
