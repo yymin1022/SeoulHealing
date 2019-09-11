@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        if(prefs.getBoolean("isFirst", true)){
+//        if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
-        }
+//        }
 
         Button.OnClickListener onClickListener = new View.OnClickListener() {
             @Override

@@ -6,6 +6,12 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="위치 권한 허용하기"
+        android:id="@+id/welcome_btn_locationPermission"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,16 +22,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/welcome_spinner_location"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="선택된 위치"
-        android:id="@+id/welcome_tv_selection"/>
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="완료"
+        android:text="설정이 완료되지 않았습니다."
         android:id="@+id/welcome_btn_done"/>
 
 </LinearLayout>
