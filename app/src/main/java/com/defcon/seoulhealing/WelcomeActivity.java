@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     Button doneBtn;
     Button locationBtn;
+    LinearLayout locationLayout;
+    LinearLayout permissionLayout;
     SharedPreferences prefs;
     SharedPreferences.Editor ed;
     Spinner locationSpinner;
@@ -40,6 +43,9 @@ public class WelcomeActivity extends AppCompatActivity {
         doneBtn = findViewById(R.id.welcome_btn_done);
         locationBtn = findViewById(R.id.welcome_btn_locationPermission);
         locationSpinner = findViewById(R.id.welcome_spinner_location);
+
+        locationLayout = findViewById(R.id.welcome_layout_location);
+        permissionLayout = findViewById(R.id.welcome_layout_permission);
 
         setupLocationBtn();
 
@@ -69,6 +75,7 @@ public class WelcomeActivity extends AppCompatActivity {
         locationArray.add("종로구");
         locationArray.add("중구");
         locationArray.add("중랑구");
+
         ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_spinner_dropdown_item,
                 locationArray);
@@ -84,8 +91,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         locationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +118,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 .setDeniedMessage("위치정보 사용 권한이 허용되지 않았습니다. 애플리케이션 사용 중 예상치 못한 문제가 발생할 수 있으며, [설절] > [앱 및 알림] > [Seoul Healing] > [권한]으로 이동하여 위치정보 사용 권한을 허용해주세요.")
                                 .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
                                 .check();
-                    }
+                        }
                 });
                 locationDialog.show();
             }

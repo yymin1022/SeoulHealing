@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
 
-    <Button
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="위치 권한 허용하기"
-        android:id="@+id/welcome_btn_locationPermission"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:id="@+id/welcome_layout_permission">
 
-    <TextView
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="위치 권한 허용하기"
+            android:id="@+id/welcome_btn_locationPermission"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설정이 완료되지 않았습니다."
+            android:id="@+id/welcome_btn_next"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="위치 지정 관련 안내문구"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:id="@+id/welcome_layout_location">
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/welcome_spinner_location"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="위치 지정 관련 안내문구"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="설정이 완료되지 않았습니다."
-        android:id="@+id/welcome_btn_done"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/welcome_spinner_location"/>
 
-</LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설정이 완료되지 않았습니다."
+            android:id="@+id/welcome_btn_done"/>
+
+    </LinearLayout>
+
+</FrameLayout>
