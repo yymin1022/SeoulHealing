@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,10 +22,26 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
 
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 //        if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
 //        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+
+        ImageView mapImage = findViewById(R.id.main_image_location_map);
+        mapImage.setImageResource(R.drawable.img_map_gwanak);
+
+        TextView locationText = findViewById(R.id.main_text_location);
+        locationText.setText(prefs.getString("location", "관악구"));
+
+        ImageButton btnTheme1 = findViewById(R.id.main_btn_travel);
+        ImageButton btnTheme2 = findViewById(R.id.main_btn_child);
+        ImageButton btnTheme3 = findViewById(R.id.main_btn_relax);
+        ImageButton btnTheme4 = findViewById(R.id.main_btn_activity);
 
         Button.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -53,13 +72,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        ImageView mapImage = findViewById(R.id.main_image_location_map);
-        mapImage.setImageResource(R.drawable.img_map_gwanak);
-
-        ImageButton btnTheme1 = findViewById(R.id.main_btn_travel);
-        ImageButton btnTheme2 = findViewById(R.id.main_btn_child);
-        ImageButton btnTheme3 = findViewById(R.id.main_btn_relax);
-        ImageButton btnTheme4 = findViewById(R.id.main_btn_activity);
         btnTheme1.setOnClickListener(onClickListener);
         btnTheme2.setOnClickListener(onClickListener);
         btnTheme3.setOnClickListener(onClickListener);
