@@ -29,6 +29,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     Button doneBtn;
     Button locationBtn;
+    Button nextBtn;
     LinearLayout locationLayout;
     LinearLayout permissionLayout;
     SharedPreferences prefs;
@@ -42,10 +43,13 @@ public class WelcomeActivity extends AppCompatActivity {
 
         doneBtn = findViewById(R.id.welcome_btn_done);
         locationBtn = findViewById(R.id.welcome_btn_locationPermission);
+        nextBtn = findViewById(R.id.welcome_btn_next);
         locationSpinner = findViewById(R.id.welcome_spinner_location);
 
         locationLayout = findViewById(R.id.welcome_layout_location);
         permissionLayout = findViewById(R.id.welcome_layout_permission);
+
+        locationLayout.setVisibility(View.INVISIBLE);
 
         setupLocationBtn();
 
@@ -134,6 +138,13 @@ public class WelcomeActivity extends AppCompatActivity {
                 finish();
             }
         });
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                locationLayout.setVisibility(View.VISIBLE);
+                permissionLayout.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     public void setupLocationBtn(){
@@ -143,12 +154,16 @@ public class WelcomeActivity extends AppCompatActivity {
 
             doneBtn.setEnabled(true);
             doneBtn.setText("완료");
+            nextBtn.setEnabled(true);
+            nextBtn.setText("다음");
         }else{
             locationBtn.setEnabled(true);
             locationBtn.setText("위치정보 사용 권한 허용하기");
 
             doneBtn.setEnabled(false);
             doneBtn.setText("설정이 완료되지 않았습니다.");
+            nextBtn.setEnabled(false);
+            nextBtn.setText("설정이 완료되지 않았습니다.");
         }
     }
 }
