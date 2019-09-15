@@ -92,7 +92,6 @@ public class ResultActivity extends AppCompatActivity{
                     }else{
                         healingAddress = healingAddressNew;
                     }
-
                     itemData.add(new HealingListItem(null, healingTitle, healingAddress, healingTheme, healingThemeID, healingContentID));
                 }
                 listAdapter = new HealingListAdapter(ResultActivity.this, itemData);
