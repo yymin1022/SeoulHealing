@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.main_btn_child:
                         Toast.makeText(MainActivity.this, "Theme 2", Toast.LENGTH_SHORT).show();
-                        themeIntent.putExtra("THEME", "100736,100362,100235,100273");
+                        themeIntent.putExtra("THEME", "100361,100769,100325");
                         break;
                     case R.id.main_btn_relax:
                         Toast.makeText(MainActivity.this, "Theme 3", Toast.LENGTH_SHORT).show();
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.main_btn_activity:
                         Toast.makeText(MainActivity.this, "Theme 4", Toast.LENGTH_SHORT).show();
-                        themeIntent.putExtra("THEME", "100361,100769,100325");
+                        themeIntent.putExtra("THEME", "100736,100362,100235,100273");
                         break;
                     default:
                         Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
