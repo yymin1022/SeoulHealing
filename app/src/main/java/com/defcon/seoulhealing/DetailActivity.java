@@ -1,6 +1,7 @@
 package com.defcon.seoulhealing;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,7 +11,9 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -149,7 +152,50 @@ String API_URL = "";
             tv_info_name4.setText(infoName4);
             tv_info_name5.setText(infoName5);
             tv_info_name6.setText(infoName6);
+
+            checkContents(tv_name, tv_info1, tv_info2, tv_info3, tv_info4, tv_info5, tv_info6);
         }
+
+        private void checkContents(TextView textName, TextView textInfo1, TextView textInfo2, TextView textInfo3, TextView textInfo4, TextView textInfo5, TextView textInfo6) {
+
+            LinearLayout layoutCardView = findViewById(R.id.layout_detail_cardview);
+            CardView cardInfo1 = findViewById(R.id.detail_card_info1);
+            CardView cardInfo2 = findViewById(R.id.detail_card_info2);
+            CardView cardInfo3 = findViewById(R.id.detail_card_info3);
+            CardView cardInfo4 = findViewById(R.id.detail_card_info4);
+            CardView cardInfo5 = findViewById(R.id.detail_card_info5);
+            CardView cardInfo6 = findViewById(R.id.detail_card_info6);
+
+            if(textName.getText().toString().equals("")) {
+                Toast.makeText(getApplicationContext(), "내용을 불러오는 중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+
+            if(textInfo1.getText().toString().equals("")) {
+                layoutCardView.removeView(cardInfo1);
+            }
+
+            if(textInfo2.getText().toString().equals("")) {
+                layoutCardView.removeView(cardInfo2);
+            }
+
+            if(textInfo3.getText().toString().equals("")) {
+                layoutCardView.removeView(cardInfo3);
+            }
+
+            if(textInfo4.getText().toString().equals("")) {
+                layoutCardView.removeView(cardInfo4);
+            }
+
+            if(textInfo5.getText().toString().equals("")) {
+                layoutCardView.removeView(cardInfo5);
+            }
+
+            if(textInfo6.getText().toString().equals("")) {
+                layoutCardView.removeView(cardInfo6);
+            }
+        }
+
     }
 
     public String getStringFromUrl(String pUrl){

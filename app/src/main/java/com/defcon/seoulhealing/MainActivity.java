@@ -179,13 +179,13 @@ public class MainActivity extends AppCompatActivity {
                         themeIntent.putExtra("THEME", "100200,100214,100162,100167");
                         break;
                     case R.id.main_btn_child:
-                        themeIntent.putExtra("THEME", "100736,100362,100235,100273");
+                        themeIntent.putExtra("THEME", "100361,100769,100325");
                         break;
                     case R.id.main_btn_relax:
                         themeIntent.putExtra("THEME", "100123,100211,100304,100569,100715,11107096,100891,11101181");
                         break;
                     case R.id.main_btn_activity:
-                        themeIntent.putExtra("THEME", "100361,100769,100325");
+                        themeIntent.putExtra("THEME", "100736,100362,100235,100273");
                         break;
                     default:
                         Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
