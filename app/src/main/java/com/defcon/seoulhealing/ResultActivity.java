@@ -82,7 +82,6 @@ public class ResultActivity extends AppCompatActivity{
                     String healingAddressOld = json.getString("COT_ADDR_FULL_OLD");
                     String healingAddressNew = json.getString("COT_ADDR_FULL_NEW");
                     String healingContentID = json.getString("COT_CONTS_ID");
-                    String healingImageUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
 
                     if(healingAddressNew.equals("")){
                         if(healingAddressOld.equals("")){
@@ -94,13 +93,7 @@ public class ResultActivity extends AppCompatActivity{
                         healingAddress = healingAddressNew;
                     }
 
-                    HttpURLConnection connection = (HttpURLConnection) new URL(healingImageUrl).openConnection();
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-
-                    Drawable healingImage = new BitmapDrawable(getResources(), BitmapFactory.decodeStream(input));
-
-                    itemData.add(new HealingListItem(healingImage, healingTitle, healingAddress, healingTheme, healingThemeID, healingContentID));
+                    itemData.add(new HealingListItem(null, healingTitle, healingAddress, healingTheme, healingThemeID, healingContentID));
                 }
                 listAdapter = new HealingListAdapter(ResultActivity.this, itemData);
             }catch(Exception e){
