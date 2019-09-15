@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 locationText.setText(location);
                 break;
             case "관악구":
-                locationImage.setImageResource(R.drawable.img_ci_geumcheon);
-                mapImage.setImageResource(R.drawable.img_map_geumcheon);
+                locationImage.setImageResource(R.drawable.img_ci_gwanak);
+                mapImage.setImageResource(R.drawable.img_map_gwanak);
                 locationText.setText(location);
                 break;
             case "광진구":
