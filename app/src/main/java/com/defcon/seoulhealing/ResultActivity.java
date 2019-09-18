@@ -1,5 +1,6 @@
 package com.defcon.seoulhealing;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -28,10 +29,14 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class ResultActivity extends AppCompatActivity{
+    String API_COORD_X = "";
+    String API_COORD_Y = "";
     String API_KEY = "e284ba69d2b34c208f15160fdb8a8e8c";
     String API_THEME = "";
-    String API_URL_DEFAULT = "https://map.seoul.go.kr/smgis/apps/theme.do?cmd=getContentsList&page_no=1&page_size=9&key=%s&coord_x=126.9752884&coord_y=37.5649732&distance=3000&search_type=0&search_name=&theme_id=%s&subcate_id=100061,1";
+    String API_URL_DEFAULT = "https://map.seoul.go.kr/smgis/apps/theme.do?cmd=getContentsList&page_no=1&page_size=9&key=%s&coord_x=%s&coord_y=%s&distance=3000&search_type=0&search_name=&theme_id=%s&subcate_id=100061,1";
     String API_URL = "";
+    String currentLocation = "";
+    String currentTheme = "";
 
     ArrayList<HealingListItem> itemData;
     HealingListAdapter listAdapter;
@@ -43,12 +48,10 @@ public class ResultActivity extends AppCompatActivity{
         setContentView(R.layout.activity_result);
         resultList = findViewById(R.id.result_list_healing);
 
-        Intent themeIntent = getIntent();
-        API_THEME = themeIntent.getStringExtra("THEME");
-        if(API_THEME == null || API_THEME.equals("")){
-            finish();
-        }
-        API_URL = String.format(Locale.getDefault(), API_URL_DEFAULT, API_KEY, API_THEME);
+        Intent fromIntent = getIntent();
+        currentTheme = fromIntent.getStringExtra("THEME");
+        currentLocation = fromIntent.getStringExtra("LOCATION");
+
         new getJSON().execute();
     }
 
@@ -64,6 +67,129 @@ public class ResultActivity extends AppCompatActivity{
 
         @Override
         protected String doInBackground(String... strs){
+            switch(currentTheme){
+                case "ACTIVITY":
+                    API_THEME = "100736,100362,100235,100273";
+                    break;
+                case "CHILD":
+                    API_THEME = "100361,100769,100325";
+                    break;
+                case "RELAX":
+                    API_THEME = "100123,100211,100304,100569,100715,11107096,100891,11101181";
+                    break;
+                case "TRAVEL":
+                    API_THEME = "100200,100214,100162,100167";
+                    break;
+            }
+
+            switch(currentLocation){
+                case "강남구":
+                    API_COORD_X = "37.5173510";
+                    API_COORD_Y = "127.0474381";
+                    break;
+                case "강동구":
+                    API_COORD_X = "37.5302636";
+                    API_COORD_Y = "127.1237964";
+                    break;
+                case "강북구":
+                    API_COORD_X = "37.6397767";
+                    API_COORD_Y = "127.0255184";
+                    break;
+                case "강서구":
+                    API_COORD_X = "37.5509103";
+                    API_COORD_Y = "126.8495742";
+                    break;
+                case "관악구":
+                    API_COORD_X = "37.4781285";
+                    API_COORD_Y = "126.9515024";
+                    break;
+                case "광진구":
+                    API_COORD_X = "37.5385333";
+                    API_COORD_Y = "127.0823772";
+                    break;
+                case "구로구":
+                    API_COORD_X = "37.4954703";
+                    API_COORD_Y = "126.8876391";
+                    break;
+                case "금천구":
+                    API_COORD_X = "37.4567380";
+                    API_COORD_Y = "126.8954720";
+                    break;
+                case "노원구":
+                    API_COORD_X = "37.6540471";
+                    API_COORD_Y = "127.0563372";
+                    break;
+                case "도봉구":
+                    API_COORD_X = "37.6687735";
+                    API_COORD_Y = "127.0430710";
+                    break;
+                case "동대문구":
+                    API_COORD_X = "37.5744155";
+                    API_COORD_Y = "127.0397427";
+                    break;
+                case "동작구":
+                    API_COORD_X = "37.5124018";
+                    API_COORD_Y = "126.9394748";
+                    break;
+                case "마포구":
+                    API_COORD_X = "37.5637561";
+                    API_COORD_Y = "126.9084211";
+                    break;
+                case "서대문구":
+                    API_COORD_X = "37.5791158";
+                    API_COORD_Y = "126.9367789";
+                    break;
+                case "서초구":
+                    API_COORD_X = "37.4835740";
+                    API_COORD_Y = "127.0326610";
+                    break;
+                case "성동구":
+                    API_COORD_X = "37.5630725";
+                    API_COORD_Y = "127.0366688";
+                    break;
+                case "성북구":
+                    API_COORD_X = "37.5893660";
+                    API_COORD_Y = "127.0167430";
+                    break;
+                case "송파구":
+                    API_COORD_X = "37.5144161";
+                    API_COORD_Y = "127.1060657";
+                    break;
+                case "양천구":
+                    API_COORD_X = "37.5167508";
+                    API_COORD_Y = "126.8665644";
+                    break;
+                case "영등포구":
+                    API_COORD_X = "37.5263440";
+                    API_COORD_Y = "126.8962560";
+                    break;
+                case "용산구":
+                    API_COORD_X = "37.5325896";
+                    API_COORD_Y = "126.9900429";
+                    break;
+                case "은평구":
+                    API_COORD_X = "37.6027496";
+                    API_COORD_Y = "126.9292386";
+                    break;
+                case "종로구":
+                    API_COORD_X = "37.5727864";
+                    API_COORD_Y = "126.9791778";
+                    break;
+                case "중구":
+                    API_COORD_X = "37.5637584";
+                    API_COORD_Y = "126.9975517";
+                    break;
+                case "중랑구":
+                    API_COORD_X = "37.6065600";
+                    API_COORD_Y = "127.0926240";
+                    break;
+            }
+
+            if(API_THEME == null || API_THEME.equals("")){
+                finish();
+            }
+            API_URL = String.format(Locale.getDefault(), API_URL_DEFAULT, API_KEY, API_COORD_Y, API_COORD_X, API_THEME);
+
             try{
                 String jsonPage = getStringFromUrl(API_URL);
 
@@ -112,7 +238,7 @@ public class ResultActivity extends AppCompatActivity{
                     startActivity(healingDetailIntent);
                 }
             });
-            progressDialog.cancel();
+            progressDialog.dismiss();
         }
     }
 

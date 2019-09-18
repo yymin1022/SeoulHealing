@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    String location = "";
+
     SharedPreferences prefs;
 
     @Override
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView mapImage = findViewById(R.id.main_image_location_map);
         TextView locationText = findViewById(R.id.main_text_location);
 
-        String location = prefs.getString("location", "관악구");
+        location = prefs.getString("location", "관악구");
         switch(location){
             case "강남구":
                 locationImage.setImageResource(R.drawable.img_ci_gangnam);
@@ -174,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent themeIntent = new Intent(MainActivity.this, ResultActivity.class);
+                themeIntent.putExtra("LOCATION", location);
                 switch(view.getId()){
                     case R.id.main_btn_travel:
                         themeIntent.putExtra("THEME", "100200,100214,100162,100167");
