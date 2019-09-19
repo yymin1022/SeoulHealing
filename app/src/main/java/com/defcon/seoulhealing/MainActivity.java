@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
 
-//        if(prefs.getBoolean("isFirst", true)){
+        if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
-//        }
+        }
     }
 
     @Override
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 locationText.setText(location);
                 break;
             case "성북구":
-//                locationImage.setImageResource(R.drawable.img_ci_seongbuk);
+                locationImage.setImageResource(R.drawable.img_ci_seongbuk);
                 mapImage.setImageResource(R.drawable.img_map_seongbuk);
                 locationText.setText(location);
                 break;
