@@ -24,15 +24,15 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
 
-        if(prefs.getBoolean("isFirst", true)){
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+//        if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
-        }
+//        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
         ImageView locationImage = findViewById(R.id.main_image_location_logo);
         ImageView mapImage = findViewById(R.id.main_image_location_map);
@@ -178,17 +178,17 @@ public class MainActivity extends AppCompatActivity {
                 Intent themeIntent = new Intent(MainActivity.this, ResultActivity.class);
                 themeIntent.putExtra("LOCATION", location);
                 switch(view.getId()){
-                    case R.id.main_btn_travel:
-                        themeIntent.putExtra("THEME", "100200,100214,100162,100167");
+                    case R.id.main_btn_activity:
+                        themeIntent.putExtra("THEME", "ACTIVITY");
                         break;
                     case R.id.main_btn_child:
-                        themeIntent.putExtra("THEME", "100361,100769,100325");
+                        themeIntent.putExtra("THEME", "CHILD");
                         break;
                     case R.id.main_btn_relax:
-                        themeIntent.putExtra("THEME", "100123,100211,100304,100569,100715,11107096,100891,11101181");
+                        themeIntent.putExtra("THEME", "RELAX");
                         break;
-                    case R.id.main_btn_activity:
-                        themeIntent.putExtra("THEME", "100736,100362,100235,100273");
+                    case R.id.main_btn_travel:
+                        themeIntent.putExtra("THEME", "TRAVEL");
                         break;
                     default:
                         Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();

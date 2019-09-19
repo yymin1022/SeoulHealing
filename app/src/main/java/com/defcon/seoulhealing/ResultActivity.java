@@ -48,10 +48,6 @@ public class ResultActivity extends AppCompatActivity{
         setContentView(R.layout.activity_result);
         resultList = findViewById(R.id.result_list_healing);
 
-        Intent fromIntent = getIntent();
-        currentTheme = fromIntent.getStringExtra("THEME");
-        currentLocation = fromIntent.getStringExtra("LOCATION");
-
         new getJSON().execute();
     }
 
@@ -62,11 +58,17 @@ public class ResultActivity extends AppCompatActivity{
         protected void onPreExecute(){
             super.onPreExecute();
             progressDialog.setMessage("Loading...");
-            progressDialog.show();
+            progressDialog.create();
         }
 
         @Override
         protected String doInBackground(String... strs){
+            currentTheme = getIntent().getStringExtra("THEME");
+            currentLocation = getIntent().getStringExtra("LOCATION");
+
+            Log.d("THEME", currentTheme);
+            Log.d("LOCATION", currentLocation);
+
             switch(currentTheme){
                 case "ACTIVITY":
                     API_THEME = "100736,100362,100235,100273";
@@ -189,6 +191,8 @@ public class ResultActivity extends AppCompatActivity{
                 finish();
             }
             API_URL = String.format(Locale.getDefault(), API_URL_DEFAULT, API_KEY, API_COORD_Y, API_COORD_X, API_THEME);
+
+            Log.d("URL OK", API_URL);
 
             try{
                 String jsonPage = getStringFromUrl(API_URL);
