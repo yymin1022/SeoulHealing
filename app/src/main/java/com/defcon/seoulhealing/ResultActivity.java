@@ -1,18 +1,15 @@
 package com.defcon.seoulhealing;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -40,13 +37,35 @@ public class ResultActivity extends AppCompatActivity{
 
     ArrayList<HealingListItem> itemData;
     HealingListAdapter listAdapter;
+    ImageView headerImage;
     ListView resultList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        headerImage = findViewById(R.id.result_image_header);
         resultList = findViewById(R.id.result_list_healing);
+
+        currentTheme = getIntent().getStringExtra("THEME");
+        currentLocation = getIntent().getStringExtra("LOCATION");
+
+        switch(currentTheme){
+            case "ACTIVITY":
+                headerImage.setImageResource(R.drawable.img_theme_activity);
+                break;
+            case "CHILD":
+                headerImage.setImageResource(R.drawable.img_theme_child);
+                break;
+            case "RELAX":
+                headerImage.setImageResource(R.drawable.img_theme_relax);
+                break;
+            case "TRAVEL":
+                headerImage.setImageResource(R.drawable.img_theme_travel);
+                break;
+
+        }
 
         new getJSON().execute();
     }
@@ -63,12 +82,6 @@ public class ResultActivity extends AppCompatActivity{
 
         @Override
         protected String doInBackground(String... strs){
-            currentTheme = getIntent().getStringExtra("THEME");
-            currentLocation = getIntent().getStringExtra("LOCATION");
-
-            Log.d("THEME", currentTheme);
-            Log.d("LOCATION", currentLocation);
-
             switch(currentTheme){
                 case "ACTIVITY":
                     API_THEME = "100736,100362,100235,100273";
@@ -191,8 +204,6 @@ public class ResultActivity extends AppCompatActivity{
                 finish();
             }
             API_URL = String.format(Locale.getDefault(), API_URL_DEFAULT, API_KEY, API_COORD_Y, API_COORD_X, API_THEME);
-
-            Log.d("URL OK", API_URL);
 
             try{
                 String jsonPage = getStringFromUrl(API_URL);

@@ -167,10 +167,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        ImageButton btnTheme1 = findViewById(R.id.main_btn_travel);
-        ImageButton btnTheme2 = findViewById(R.id.main_btn_child);
-        ImageButton btnTheme3 = findViewById(R.id.main_btn_relax);
-        ImageButton btnTheme4 = findViewById(R.id.main_btn_activity);
+        ImageButton btnActivity = findViewById(R.id.main_btn_activity);
+        ImageButton btnChild = findViewById(R.id.main_btn_child);
+        ImageButton btnRelax = findViewById(R.id.main_btn_relax);
+        ImageButton btnTravel = findViewById(R.id.main_btn_travel);
 
         Button.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
@@ -198,9 +198,9 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        btnTheme1.setOnClickListener(onClickListener);
-        btnTheme2.setOnClickListener(onClickListener);
-        btnTheme3.setOnClickListener(onClickListener);
-        btnTheme4.setOnClickListener(onClickListener);
+        btnActivity.setOnClickListener(onClickListener);
+        btnChild.setOnClickListener(onClickListener);
+        btnRelax.setOnClickListener(onClickListener);
+        btnTravel.setOnClickListener(onClickListener);
     }
 }
