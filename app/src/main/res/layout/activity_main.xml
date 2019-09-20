@@ -54,11 +54,12 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <GridLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_gravity="center"
+        android:columnCount="2"
+        android:rowCount="2">
 
         <ImageButton
             android:layout_width="150dp"
@@ -76,14 +77,6 @@
             android:background="@drawable/btn_main_child"
             android:adjustViewBounds="true"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
         <ImageButton
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -100,6 +93,6 @@
             android:background="@drawable/btn_main_activity"
             android:adjustViewBounds="true"/>
 
-    </LinearLayout>
+    </GridLayout>
 
 </LinearLayout>
