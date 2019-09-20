@@ -1,9 +1,14 @@
 package com.defcon.seoulhealing;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     String location = "";
 
     SharedPreferences prefs;
+    private LocationManager locationManager;
+    private static final int REQUEST_CODE_LOCATION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,4 +210,6 @@ public class MainActivity extends AppCompatActivity {
         btnRelax.setOnClickListener(onClickListener);
         btnTravel.setOnClickListener(onClickListener);
     }
+
+
 }
