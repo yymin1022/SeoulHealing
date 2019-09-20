@@ -1,6 +1,7 @@
 package com.defcon.seoulhealing;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
