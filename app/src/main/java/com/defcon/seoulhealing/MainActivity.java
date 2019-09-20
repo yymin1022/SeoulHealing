@@ -34,15 +34,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-//        if(prefs.getBoolean("isFirst", true)){
+        if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
-//        }
-        startActivityAnimation();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        startActivityAnimation();
 
         ImageView locationImage = findViewById(R.id.main_image_location_logo);
         ImageView mapImage = findViewById(R.id.main_image_location_map);

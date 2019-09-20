@@ -53,16 +53,16 @@ public class ResultActivity extends AppCompatActivity{
 
         switch(currentTheme){
             case "ACTIVITY":
-                headerImage.setImageResource(R.drawable.img_theme_activity);
+                headerImage.setImageResource(R.drawable.result_header_activity);
                 break;
             case "CHILD":
-                headerImage.setImageResource(R.drawable.img_theme_child);
+                headerImage.setImageResource(R.drawable.result_header_child);
                 break;
             case "RELAX":
-                headerImage.setImageResource(R.drawable.img_theme_relax);
+                headerImage.setImageResource(R.drawable.result_header_relax);
                 break;
             case "TRAVEL":
-                headerImage.setImageResource(R.drawable.img_theme_travel);
+                headerImage.setImageResource(R.drawable.result_header_travel);
                 break;
 
         }
