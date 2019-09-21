@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent themeIntent = new Intent(MainActivity.this, ResultActivity.class);
                 themeIntent.putExtra("LOCATION", location);
 
-                if(isNetworkConnected() == true) {
+                if(isNetworkConnected()) {
                     switch(view.getId()){
                         case R.id.main_btn_activity:
                             themeIntent.putExtra("THEME", "ACTIVITY");
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
                             break;
                     }
-                } else if(isNetworkConnected() == false) {
+                } else if(!isNetworkConnected()) {
                     Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요!", Toast.LENGTH_SHORT).show();
                 }
             }
