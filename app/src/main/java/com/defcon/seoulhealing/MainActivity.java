@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -37,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
         if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
         }
+
+        startActivityAnimation();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        startActivityAnimation();
 
         ImageView locationImage = findViewById(R.id.main_image_location_logo);
         ImageView mapImage = findViewById(R.id.main_image_location_map);
@@ -193,26 +195,31 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent themeIntent = new Intent(MainActivity.this, ResultActivity.class);
                 themeIntent.putExtra("LOCATION", location);
-                switch(view.getId()){
-                    case R.id.main_btn_activity:
-                        themeIntent.putExtra("THEME", "ACTIVITY");
-                        setThemeButtonAnimation(btnActivity, R.anim.scale_btn_activity, btnChild, btnRelax, btnTravel, themeIntent);
-                        break;
-                    case R.id.main_btn_child:
-                        themeIntent.putExtra("THEME", "CHILD");
-                        setThemeButtonAnimation(btnChild, R.anim.scale_btn_child, btnActivity, btnRelax, btnTravel, themeIntent);
-                        break;
-                    case R.id.main_btn_relax:
-                        themeIntent.putExtra("THEME", "RELAX");
-                        setThemeButtonAnimation(btnRelax, R.anim.scale_btn_relax, btnActivity, btnChild, btnTravel, themeIntent);
-                        break;
-                    case R.id.main_btn_travel:
-                        themeIntent.putExtra("THEME", "TRAVEL");
-                        setThemeButtonAnimation(btnTravel, R.anim.scale_btn_travel, btnActivity, btnChild, btnRelax, themeIntent);
-                        break;
-                    default:
-                        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                        break;
+
+                if(isNetworkConnected() == true) {
+                    switch(view.getId()){
+                        case R.id.main_btn_activity:
+                            themeIntent.putExtra("THEME", "ACTIVITY");
+                            setThemeButtonAnimation(btnActivity, R.anim.scale_btn_activity, btnChild, btnRelax, btnTravel, themeIntent);
+                            break;
+                        case R.id.main_btn_child:
+                            themeIntent.putExtra("THEME", "CHILD");
+                            setThemeButtonAnimation(btnChild, R.anim.scale_btn_child, btnActivity, btnRelax, btnTravel, themeIntent);
+                            break;
+                        case R.id.main_btn_relax:
+                            themeIntent.putExtra("THEME", "RELAX");
+                            setThemeButtonAnimation(btnRelax, R.anim.scale_btn_relax, btnActivity, btnChild, btnTravel, themeIntent);
+                            break;
+                        case R.id.main_btn_travel:
+                            themeIntent.putExtra("THEME", "TRAVEL");
+                            setThemeButtonAnimation(btnTravel, R.anim.scale_btn_travel, btnActivity, btnChild, btnRelax, themeIntent);
+                            break;
+                        default:
+                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                } else if(isNetworkConnected() == false) {
+                    Toast.makeText(getApplicationContext(), "인터넷 연결 상태를 확인해주세요!", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -288,5 +295,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationRepeat(Animation animation) { }
         });
+    }
+
+    private Boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean isMobileAvailable = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable();
+        boolean isMobileConnect = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        boolean isWifiAvailable = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isAvailable();
+        boolean isWifiConnect = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+
+        if ((isWifiAvailable && isWifiConnect) || (isMobileAvailable && isMobileConnect)){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
