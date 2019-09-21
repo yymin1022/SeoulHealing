@@ -12,6 +12,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -40,7 +41,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, WelcomeActivity.class));
         }
 
-        startActivityAnimation();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivityAnimation();
+            }
+        }, 1000);
     }
 
     @Override

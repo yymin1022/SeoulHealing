@@ -250,6 +250,7 @@ public class ResultActivity extends AppCompatActivity{
                     Intent healingDetailIntent = new Intent(ResultActivity.this, DetailActivity.class);
                     healingDetailIntent.putExtra("CONTENT_ID", itemData.get(i).getContentIDStr());
                     healingDetailIntent.putExtra("THEME_ID", itemData.get(i).getThemeIDStr());
+                    healingDetailIntent.putExtra("THEME_NAME", itemData.get(i).getThemeStr());
                     startActivity(healingDetailIntent);
                 }
             });

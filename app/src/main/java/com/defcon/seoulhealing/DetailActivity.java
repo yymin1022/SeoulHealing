@@ -11,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ import java.util.Locale;
 public class DetailActivity extends AppCompatActivity {
 String contentID = "";
 String themeID = "";
+String themeName = "";
 
 String API_URL_DEFAULT = "https://map.seoul.go.kr/smgis/apps/poi.do?cmd=getNewContentsDetail&key=e284ba69d2b34c208f15160fdb8a8e8c&theme_id=%s&conts_id=%s";
 String API_URL = "";
@@ -43,6 +46,7 @@ String API_URL = "";
         Intent intent = getIntent();
         themeID = intent.getStringExtra("THEME_ID");
         contentID = intent.getStringExtra("CONTENT_ID");
+        themeName = intent.getStringExtra("THEME_NAME");
 
         API_URL = String.format(Locale.getDefault(), API_URL_DEFAULT, themeID, contentID);
 
@@ -153,6 +157,25 @@ String API_URL = "";
             tv_info_name6.setText(infoName6);
 
             checkContents(tv_name, tv_info1, tv_info2, tv_info3, tv_info4, tv_info5, tv_info6);
+
+            Button.OnClickListener onClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch (view.getId()) {
+                        case R.id.detail_btn_share :
+                            shareContents();
+                            break;
+
+                        case R.id.detail_btn_navi :
+                            break;
+
+                        case R.id.detail_btn_map :
+                            break;
+                    }
+                }
+            };
+            Button btnShare = findViewById(R.id.detail_btn_share);
+            btnShare.setOnClickListener(onClickListener);
         }
 
         private void checkContents(TextView textName, TextView textInfo1, TextView textInfo2, TextView textInfo3, TextView textInfo4, TextView textInfo5, TextView textInfo6) {
@@ -193,6 +216,68 @@ String API_URL = "";
             if(textInfo6.getText().toString().equals("")) {
                 layoutCardView.removeView(cardInfo6);
             }
+        }
+
+        private void shareContents() {
+            String name = this.name + "\n";
+            String address = this.address + "\n" + "\n" + "\n";
+            String info1 = this.info1 + "\n" + "\n" + "\n";
+            String info2 = this.info2 + "\n" + "\n" + "\n";
+            String info3 = this.info3 + "\n" + "\n" + "\n";
+            String info4 = this.info4 + "\n" + "\n" + "\n";
+            String info5 = this.info5 + "\n" + "\n" + "\n";
+            String info6 = this.info6 + "\n" + "\n" + "\n";
+            String infoName1 = "- " + this.infoName1 + "\n" + "\n";
+            String infoName2 = "- " + this.infoName2 + "\n" + "\n";
+            String infoName3 = "- " + this.infoName3 + "\n" + "\n";
+            String infoName4 = "- " + this.infoName4 + "\n" + "\n";
+            String infoName5 = "- " + this.infoName5 + "\n" + "\n";
+            String infoName6 = "- " + this.infoName6 + "\n" + "\n";
+
+            if(info1.equals("\n\n\n")) {
+                info1 = "";
+                infoName1 = "";
+            }
+            if(info2.equals("\n\n\n")) {
+                info2 = "";
+                infoName2 = "";
+            }
+            if(info3.equals("\n\n\n")) {
+                info3 = "";
+                infoName3 = "";
+            }
+            if(info4.equals("\n\n\n")) {
+                info4 = "";
+                infoName4 = "";
+            }
+            if(info5.equals("\n\n\n")) {
+                info5 = "";
+                infoName5 = "";
+            }
+            if(info6.equals("\n\n\n")) {
+                info6 = "";
+                infoName6 = "";
+            }
+
+            String fullText =
+                    "[SeoulHealing]" +
+                    "\n" +
+                    "\n" +
+                    "힐링이 필요한 당신에게 이 장소를 소개합니다!" +
+                    "\n" +
+                    "\n" +
+                    "\n" +
+                    "<" + themeName + ">" +
+                    "\n" +
+                    "\n" +
+                    "장소 : " + name +
+                    "주소 : " + address +
+                    infoName1 + info1 + infoName2 + info2 + infoName3 + info3 + infoName4 + info4 + infoName5 + info5 + infoName6 + info6;
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, fullText);
+            startActivity(intent);
         }
 
     }

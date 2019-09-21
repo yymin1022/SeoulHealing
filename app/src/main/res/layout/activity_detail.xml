@@ -7,7 +7,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <LinearLayout
             android:id="@+id/layout_detail_cardview"
@@ -258,5 +259,31 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/detail_btn_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="공유" />
+
+        <Button
+            android:id="@+id/detail_btn_navi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="길 찾기" />
+
+        <Button
+            android:id="@+id/detail_btn_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지도 보기" />
+
+    </LinearLayout>
 
 </LinearLayout>
