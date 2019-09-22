@@ -2,17 +2,20 @@ package com.defcon.seoulhealing;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import android.Manifest;
+
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.PrecomputedText;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,9 +28,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     String location = "";
 
+    LocationManager locationManager;
     SharedPreferences prefs;
-    private LocationManager locationManager;
-    private static final int REQUEST_CODE_LOCATION = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
 
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivityAnimation();
+                new getCurrentLocation().execute();
             }
         }, 1000);
     }
@@ -315,5 +319,58 @@ public class MainActivity extends AppCompatActivity {
         }else{
             return false;
         }
+    }
+
+    private class getCurrentLocation extends AsyncTask<Void, Void, Void> {
+        ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(getApplicationContext());
+            progressDialog.setMessage("현재 위치를 검색중입니다.");
+//            progressDialog.show();
+        }
+        @Override
+        protected Void doInBackground(Void... params){
+            try{
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                String provider = location.getProvider();
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                double altitude = location.getAltitude();
+
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
+            }catch(SecurityException e){
+                Log.e("Error", e.toString());
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void param) {
+            progressDialog.cancel();
+        }
+
+        final LocationListener gpsLocationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                String provider = location.getProvider();
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                double altitude = location.getAltitude();
+
+                Log.d("GPS", longitude + ":" + latitude);
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
+
+            public void onProviderEnabled(String provider) {
+            }
+
+            public void onProviderDisabled(String provider) {
+            }
+        };
     }
 }
