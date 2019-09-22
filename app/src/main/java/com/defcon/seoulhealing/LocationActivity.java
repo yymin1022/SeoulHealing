@@ -2,6 +2,9 @@ package com.defcon.seoulhealing;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -10,11 +13,13 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,6 +27,7 @@ public class LocationActivity extends AppCompatActivity {
     String locationSelect;
 
     Button doneBtn;
+    LocationManager locationManager;
     SharedPreferences prefs;
     Spinner locationSpinner;
 
@@ -84,7 +90,28 @@ public class LocationActivity extends AppCompatActivity {
                     case 1:
                         doneBtn.setEnabled(false);
                         doneBtn.setText("설정이 완료되지 않았습니다.");
-                        Snackbar.make(view, "아직 구현되지 않은 기능입니다.", Snackbar.LENGTH_SHORT).show();
+//                        Snackbar.make(view, "아직 구현되지 않은 기능입니다.", Snackbar.LENGTH_SHORT).show();
+
+                        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+                        try{
+                            Criteria criteria = new Criteria();
+                            criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+                            criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+                            criteria.setAltitudeRequired(false);
+                            criteria.setBearingRequired(false);
+                            criteria.setSpeedRequired(false);
+                            criteria.setCostAllowed(true);
+                            String bestProvider = locationManager.getBestProvider(criteria, true);
+                            Location location = locationManager.getLastKnownLocation(bestProvider);
+                            double longitude = location.getLongitude();
+                            double latitude = location.getLatitude();
+
+                            Toast.makeText(getApplicationContext(), "Current Location\nLong : " + longitude + "\nLati : " + latitude, Toast.LENGTH_SHORT).show();
+
+                        }catch(SecurityException e){
+                            Log.e("Error", e.toString());
+                        }
                         break;
                     default:
                         doneBtn.setEnabled(true);

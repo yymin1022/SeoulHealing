@@ -3,19 +3,10 @@ package com.defcon.seoulhealing;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,40 +19,12 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     String location = "";
 
-    LocationManager locationManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        try{
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.NO_REQUIREMENT);
-            criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
-            criteria.setAltitudeRequired(false);
-            criteria.setBearingRequired(false);
-            criteria.setSpeedRequired(false);
-            criteria.setCostAllowed(true);
-            String bestProvider = locationManager.getBestProvider(criteria, true);
-            Location location = locationManager.getLastKnownLocation(bestProvider);
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
-
-            Toast.makeText(getApplicationContext(), "Current Location\nLong : " + longitude + "\nLati : " + latitude, Toast.LENGTH_SHORT).show();
-
-        }catch(SecurityException e){
-            Log.e("Error", e.toString());
-        }
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivityAnimation();
-            }
-        }, 1000);
+        startActivityAnimation();
     }
 
     @Override
@@ -336,58 +299,5 @@ public class MainActivity extends AppCompatActivity {
         }else{
             return false;
         }
-    }
-
-    private class getCurrentLocation extends AsyncTask<Void, Void, Void> {
-        ProgressDialog progressDialog;
-
-        @Override
-        protected void onPreExecute() {
-            progressDialog = new ProgressDialog(getApplicationContext());
-            progressDialog.setMessage("현재 위치를 검색중입니다.");
-//            progressDialog.show();
-        }
-        @Override
-        protected Void doInBackground(Void... params){
-            try{
-                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                String provider = location.getProvider();
-                double longitude = location.getLongitude();
-                double latitude = location.getLatitude();
-                double altitude = location.getAltitude();
-
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, gpsLocationListener);
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1, gpsLocationListener);
-            }catch(SecurityException e){
-                Log.e("Error", e.toString());
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void param) {
-            progressDialog.cancel();
-        }
-
-        final LocationListener gpsLocationListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                String provider = location.getProvider();
-                double longitude = location.getLongitude();
-                double latitude = location.getLatitude();
-                double altitude = location.getAltitude();
-
-                Log.d("GPS", longitude + ":" + latitude);
-            }
-
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            public void onProviderEnabled(String provider) {
-            }
-
-            public void onProviderDisabled(String provider) {
-            }
-        };
     }
 }
