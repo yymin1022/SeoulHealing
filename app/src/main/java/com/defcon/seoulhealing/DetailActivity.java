@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -167,15 +168,21 @@ String API_URL = "";
                             break;
 
                         case R.id.detail_btn_navi :
+                            startGoogleMap("https://www.google.com/maps/dir//");
                             break;
 
                         case R.id.detail_btn_map :
+                            startGoogleMap("https://www.google.com/maps/place/");
                             break;
                     }
                 }
             };
             Button btnShare = findViewById(R.id.detail_btn_share);
+            Button btnNavi = findViewById(R.id.detail_btn_navi);
+            Button btnMap = findViewById(R.id.detail_btn_map);
             btnShare.setOnClickListener(onClickListener);
+            btnNavi.setOnClickListener(onClickListener);
+            btnMap.setOnClickListener(onClickListener);
         }
 
         private void checkContents(TextView textName, TextView textInfo1, TextView textInfo2, TextView textInfo3, TextView textInfo4, TextView textInfo5, TextView textInfo6) {
@@ -278,6 +285,17 @@ String API_URL = "";
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TEXT, fullText);
             startActivity(intent);
+        }
+
+        private void startGoogleMap(String url) {
+            String fullUrl = "";
+            if(address.equals("등록된 주소가 없습니다.")) {
+                fullUrl = url + name;
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl)));
+            } else {
+                fullUrl = url + address;
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl)));
+            }
         }
 
     }
