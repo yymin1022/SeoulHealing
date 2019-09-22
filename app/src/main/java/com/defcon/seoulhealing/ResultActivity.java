@@ -84,7 +84,7 @@ public class ResultActivity extends AppCompatActivity{
         protected String doInBackground(String... strs){
             switch(currentTheme){
                 case "ACTIVITY":
-                    API_THEME = "100736,100362,100235,100273";
+                    API_THEME = "100736,100362,100235,100770";
                     break;
                 case "CHILD":
                     API_THEME = "100361,100769,100325";
