@@ -14,7 +14,6 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.PrecomputedText;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -44,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, WelcomeActivity.class));
         }
 
+//        new getCurrentLocation().execute();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivityAnimation();
-                new getCurrentLocation().execute();
             }
         }, 1000);
     }
