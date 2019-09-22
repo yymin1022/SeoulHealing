@@ -6,16 +6,21 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <Button
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="위치 권한 허용하기"
-        android:id="@+id/welcome_btn_locationPermission"/>
+        android:text="위치 지정 관련 안내문구"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_spinner_location"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="설정이 완료되지 않았습니다."
-        android:id="@+id/welcome_btn_done"/>
+        android:enabled="false"
+        android:id="@+id/location_btn_done"/>
 
 </LinearLayout>

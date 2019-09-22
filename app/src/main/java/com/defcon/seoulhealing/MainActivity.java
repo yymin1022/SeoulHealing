@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,22 +29,32 @@ public class MainActivity extends AppCompatActivity {
     String location = "";
 
     LocationManager locationManager;
-    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(getBaseContext(), SplashActivity.class));
-
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        if(prefs.getBoolean("isFirst", true)){
-            startActivity(new Intent(this, WelcomeActivity.class));
-        }
 
-//        new getCurrentLocation().execute();
+        try{
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+            criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+            criteria.setAltitudeRequired(false);
+            criteria.setBearingRequired(false);
+            criteria.setSpeedRequired(false);
+            criteria.setCostAllowed(true);
+            String bestProvider = locationManager.getBestProvider(criteria, true);
+            Location location = locationManager.getLastKnownLocation(bestProvider);
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+
+            Toast.makeText(getApplicationContext(), "Current Location\nLong : " + longitude + "\nLati : " + latitude, Toast.LENGTH_SHORT).show();
+
+        }catch(SecurityException e){
+            Log.e("Error", e.toString());
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -61,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView mapImage = findViewById(R.id.main_image_location_map);
         TextView locationText = findViewById(R.id.main_text_location);
 
-        location = prefs.getString("location", "관악구");
+        location = getIntent().getStringExtra("LOCATION");
         switch(location){
             case "강남구":
                 locationImage.setImageResource(R.drawable.img_ci_gangnam);
@@ -238,6 +249,12 @@ public class MainActivity extends AppCompatActivity {
         btnChild.setOnClickListener(onClickListener);
         btnRelax.setOnClickListener(onClickListener);
         btnTravel.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 
     private void startActivityAnimation() {

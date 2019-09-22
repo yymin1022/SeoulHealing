@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SeoulHealing</string>
+    <string name="title_activity_location">LocationActivity</string>
 </resources>

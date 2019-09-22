@@ -8,30 +8,19 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity {
-    String locationSelect;
-
     Button doneBtn;
     Button locationBtn;
-    Button nextBtn;
-    LinearLayout locationLayout;
-    LinearLayout permissionLayout;
     SharedPreferences prefs;
     SharedPreferences.Editor ed;
-    Spinner locationSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,59 +29,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
         doneBtn = findViewById(R.id.welcome_btn_done);
         locationBtn = findViewById(R.id.welcome_btn_locationPermission);
-        nextBtn = findViewById(R.id.welcome_btn_next);
-        locationSpinner = findViewById(R.id.welcome_spinner_location);
-
-        locationLayout = findViewById(R.id.welcome_layout_location);
-        permissionLayout = findViewById(R.id.welcome_layout_permission);
-
-        locationLayout.setVisibility(View.INVISIBLE);
-
         setupLocationBtn();
 
-        final ArrayList<String> locationArray = new ArrayList<>();
-        locationArray.add("강남구");
-        locationArray.add("강동구");
-        locationArray.add("강북구");
-        locationArray.add("강서구");
-        locationArray.add("관악구");
-        locationArray.add("광진구");
-        locationArray.add("구로구");
-        locationArray.add("금천구");
-        locationArray.add("노원구");
-        locationArray.add("도봉구");
-        locationArray.add("동대문구");
-        locationArray.add("동작구");
-        locationArray.add("마포구");
-        locationArray.add("서대문구");
-        locationArray.add("서초구");
-        locationArray.add("성동구");
-        locationArray.add("성북구");
-        locationArray.add("송파구");
-        locationArray.add("양천구");
-        locationArray.add("영등포구");
-        locationArray.add("용산구");
-        locationArray.add("은평구");
-        locationArray.add("종로구");
-        locationArray.add("중구");
-        locationArray.add("중랑구");
-
-        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                locationArray);
-        locationSpinner.setAdapter(locationArrayAdapter);
-        locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                locationSelect = locationArray.get(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
+            public void onClick(View view) {
+                prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+                ed = prefs.edit();
+                ed.putBoolean("isFirst", false);
+                ed.apply();
+                finish();
             }
         });
-
         locationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,24 +72,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 locationDialog.show();
             }
         });
-        doneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-                ed = prefs.edit();
-                ed.putString("location", locationSelect);
-                ed.putBoolean("isFirst", false);
-                ed.apply();
-                finish();
-            }
-        });
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                locationLayout.setVisibility(View.VISIBLE);
-                permissionLayout.setVisibility(View.INVISIBLE);
-            }
-        });
     }
 
     public void setupLocationBtn(){
@@ -151,16 +81,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
             doneBtn.setEnabled(true);
             doneBtn.setText("완료");
-            nextBtn.setEnabled(true);
-            nextBtn.setText("다음");
         }else{
             locationBtn.setEnabled(true);
             locationBtn.setText("위치정보 사용 권한 허용하기");
 
             doneBtn.setEnabled(false);
             doneBtn.setText("설정이 완료되지 않았습니다.");
-            nextBtn.setEnabled(false);
-            nextBtn.setText("설정이 완료되지 않았습니다.");
         }
     }
 }
