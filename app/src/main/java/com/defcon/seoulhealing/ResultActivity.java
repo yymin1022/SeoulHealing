@@ -1,6 +1,7 @@
 package com.defcon.seoulhealing;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -8,8 +9,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -72,10 +76,12 @@ public class ResultActivity extends AppCompatActivity{
 
     private class getJSON extends AsyncTask<String, Void, String>{
         ProgressDialog progressDialog = new ProgressDialog(ResultActivity.this);
+        LinearLayout resultLayout = findViewById(R.id.result_layout);
 
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
+            resultLayout.setVisibility(View.INVISIBLE);
             progressDialog.setMessage("Loading...");
             progressDialog.show();
         }
@@ -255,6 +261,8 @@ public class ResultActivity extends AppCompatActivity{
                 }
             });
             progressDialog.dismiss();
+            resultLayout.setVisibility(View.VISIBLE);
+            startActivityAnimation();
         }
     }
 
@@ -288,5 +296,16 @@ public class ResultActivity extends AppCompatActivity{
             }
         }
         return page.toString();
+    }
+
+    private void startActivityAnimation() {
+        CardView cardViewHeader = findViewById(R.id.result_cardview_header);
+        ListView listHealing = findViewById(R.id.result_list_healing);
+
+        Animation fadeInCardHeader = AnimationUtils.loadAnimation(this, R.anim.fade_in_theme_header);
+        Animation fadeInListHealing = AnimationUtils.loadAnimation(this, R.anim.fade_in_list_healing);
+
+        cardViewHeader.startAnimation(fadeInCardHeader);
+        listHealing.startAnimation(fadeInListHealing);
     }
 }
