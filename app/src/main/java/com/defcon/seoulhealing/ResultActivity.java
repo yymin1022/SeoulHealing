@@ -204,6 +204,9 @@ public class ResultActivity extends AppCompatActivity{
                     API_COORD_X = "37.6065600";
                     API_COORD_Y = "127.0926240";
                     break;
+                default:
+                    API_COORD_X = currentLocation.split(":")[1];
+                    API_COORD_Y = currentLocation.split(":")[0];
             }
 
             if(API_THEME == null || API_THEME.equals("")){

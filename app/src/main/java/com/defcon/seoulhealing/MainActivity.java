@@ -162,6 +162,8 @@ public class MainActivity extends AppCompatActivity {
                 mapImage.setImageResource(R.drawable.img_map_jungnang);
                 locationText.setText(location);
                 break;
+            default:
+                locationText.setText("현재위치 기반 검색결과");
         }
 
         final ImageButton btnActivity = findViewById(R.id.main_btn_activity);
