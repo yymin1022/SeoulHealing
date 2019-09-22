@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 startActivityAnimation();
-                new getCurrentLocation().execute();
+                //new getCurrentLocation().execute();
             }
         }, 1000);
     }
