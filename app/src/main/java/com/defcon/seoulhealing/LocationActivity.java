@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class LocationActivity extends AppCompatActivity {
+    double latitude = 0;
+    double longitude = 0;
     String locationSelect;
 
     Button doneBtn;
@@ -110,11 +112,10 @@ public class LocationActivity extends AppCompatActivity {
                             String bestProvider = locationManager.getBestProvider(criteria, true);
                             @SuppressLint("MissingPermission")
                             Location location = locationManager.getLastKnownLocation(bestProvider);
-                            double longitude = location.getLongitude();
-                            double latitude = location.getLatitude();
+                            longitude = location.getLongitude();
+                            latitude = location.getLatitude();
 
                             locationSelect = longitude + ":" + latitude;
-
                             doneBtn.setEnabled(true);
                             doneBtn.setText("완료");
 

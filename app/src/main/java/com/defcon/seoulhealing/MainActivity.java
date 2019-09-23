@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 locationText.setText(location);
                 break;
             default:
+                mapImage.setImageResource(R.drawable.img_map_jung);
                 locationText.setText("현재위치 기반 검색결과");
         }
 

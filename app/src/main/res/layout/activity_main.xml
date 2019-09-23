@@ -55,45 +55,52 @@
 
     </FrameLayout>
 
-    <GridLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:columnCount="2"
-        android:rowCount="2">
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:id="@+id/main_btn_travel"
-            android:background="@drawable/btn_main_travel"
-            android:adjustViewBounds="true"/>
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="2">
 
-        <ImageButton
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:id="@+id/main_btn_child"
-            android:background="@drawable/btn_main_child"
-            android:adjustViewBounds="true"/>
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:id="@+id/main_btn_travel"
+                android:background="@drawable/btn_main_travel"
+                android:adjustViewBounds="true"/>
 
-        <ImageButton
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:id="@+id/main_btn_relax"
-            android:background="@drawable/btn_main_relax"
-            android:adjustViewBounds="true"/>
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:id="@+id/main_btn_child"
+                android:background="@drawable/btn_main_child"
+                android:adjustViewBounds="true"/>
 
-        <ImageButton
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_margin="10dp"
-            android:id="@+id/main_btn_activity"
-            android:background="@drawable/btn_main_activity"
-            android:adjustViewBounds="true"/>
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:id="@+id/main_btn_relax"
+                android:background="@drawable/btn_main_relax"
+                android:adjustViewBounds="true"/>
 
-    </GridLayout>
+            <ImageButton
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="10dp"
+                android:id="@+id/main_btn_activity"
+                android:background="@drawable/btn_main_activity"
+                android:adjustViewBounds="true"/>
+
+        </GridLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
