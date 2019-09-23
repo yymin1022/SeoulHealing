@@ -16,6 +16,19 @@
             android:id="@+id/main_image_location_map"
             android:adjustViewBounds="true"/>
 
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
         <androidx.cardview.widget.CardView
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
@@ -53,13 +66,10 @@
 
         </androidx.cardview.widget.CardView>
 
-    </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -100,6 +110,11 @@
                 android:adjustViewBounds="true"/>
 
         </GridLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
