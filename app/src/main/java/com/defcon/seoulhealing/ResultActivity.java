@@ -225,13 +225,13 @@ public class ResultActivity extends AppCompatActivity{
                 for(int i = 0; i < jArr.length(); i++){
                     json = jArr.getJSONObject(i);
 
-                    String healingTitle = json.getString("COT_CONTS_NAME");
-                    String healingTheme = json.getString("THM_THEME_NAME");
-                    String healingThemeID = json.getString("COT_THEME_ID");
+                    String healingTitle = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    String healingTheme = json.getString("THM_THEME_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    String healingThemeID = json.getString("COT_THEME_ID").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
                     String healingAddress;
-                    String healingAddressOld = json.getString("COT_ADDR_FULL_OLD");
-                    String healingAddressNew = json.getString("COT_ADDR_FULL_NEW");
-                    String healingContentID = json.getString("COT_CONTS_ID");
+                    String healingAddressOld = json.getString("COT_ADDR_FULL_OLD").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    String healingAddressNew = json.getString("COT_ADDR_FULL_NEW").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    String healingContentID = json.getString("COT_CONTS_ID").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
 
                     if(healingAddressNew.equals("")){
                         if(healingAddressOld.equals("")){
