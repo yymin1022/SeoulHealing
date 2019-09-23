@@ -81,21 +81,21 @@ String API_URL = "";
                     json = jArr.getJSONObject(i);
 
                     String imgUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
-                    name = json.getString("COT_CONTS_NAME");
+                    name = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
                     addressOld = json.getString("COT_ADDR_FULL_OLD");
                     addressNew = json.getString("COT_ADDR_FULL_NEW");
-                    info1 = json.getString("COT_VALUE_01");
-                    info2 = json.getString("COT_VALUE_02");
-                    info3 = json.getString("COT_VALUE_03");
-                    info4 = json.getString("COT_VALUE_04");
-                    info5 = json.getString("COT_VALUE_05");
-                    info6 = json.getString("COT_VALUE_06");
-                    infoName1 = json.getString("COT_NAME_01");
-                    infoName2 = json.getString("COT_NAME_02");
-                    infoName3 = json.getString("COT_NAME_03");
-                    infoName4 = json.getString("COT_NAME_04");
-                    infoName5 = json.getString("COT_NAME_05");
-                    infoName6 = json.getString("COT_NAME_06");
+                    info1 = json.getString("COT_VALUE_01").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    info2 = json.getString("COT_VALUE_02").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    info3 = json.getString("COT_VALUE_03").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    info4 = json.getString("COT_VALUE_04").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    info5 = json.getString("COT_VALUE_05").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    info6 = json.getString("COT_VALUE_06").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    infoName1 = json.getString("COT_NAME_01").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    infoName2 = json.getString("COT_NAME_02").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    infoName3 = json.getString("COT_NAME_03").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    infoName4 = json.getString("COT_NAME_04").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    infoName5 = json.getString("COT_NAME_05").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    infoName6 = json.getString("COT_NAME_06").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
 
                     if(addressNew.equals("")){
                         if(addressOld.equals("")){
@@ -277,7 +277,7 @@ String API_URL = "";
                     "<" + themeName + ">" +
                     "\n" +
                     "\n" +
-                    "장소 : " + name +
+                    "이름 : " + name +
                     "주소 : " + address +
                     infoName1 + info1 + infoName2 + info2 + infoName3 + info3 + infoName4 + info4 + infoName5 + info5 + infoName6 + info6;
 
