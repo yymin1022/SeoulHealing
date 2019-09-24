@@ -1,24 +1,17 @@
 package com.defcon.seoulhealing;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Address;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,15 +20,12 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 public class LocationActivity extends AppCompatActivity {
     double latitude = 0;
     double longitude = 0;
-    String locationSelect;
+    String locationSelect = "";
 
     Button doneBtn;
     LocationManager locationManager;
@@ -86,9 +76,7 @@ public class LocationActivity extends AppCompatActivity {
         locationArray.add("중구");
         locationArray.add("중랑구");
 
-        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                locationArray);
+        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, locationArray);
         locationSpinner.setAdapter(locationArrayAdapter);
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -96,43 +84,41 @@ public class LocationActivity extends AppCompatActivity {
                 switch(i){
                     case 0:
                         doneBtn.setEnabled(false);
-                        doneBtn.setText("설정이 완료되지 않았습니다.");
+                        doneBtn.setText("지역을 선택해주세요.");
                         break;
                     case 1:
-                        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LocationActivity.this);
+                        builder.setMessage("위성 상태에 따라 현재위치를 파악하지 못하거나 정확하지 않을 수 있습니다.");
+                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try{
+                                    Criteria criteria = new Criteria();
+                                    criteria.setAccuracy(Criteria.NO_REQUIREMENT);
+                                    criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
+                                    criteria.setAltitudeRequired(false);
+                                    criteria.setBearingRequired(false);
+                                    criteria.setSpeedRequired(false);
+                                    criteria.setCostAllowed(true);
+                                    String bestProvider = locationManager.getBestProvider(criteria, true);
+                                    @SuppressLint("MissingPermission")
+                                    Location location = locationManager.getLastKnownLocation(bestProvider);
+                                    longitude = location.getLongitude();
+                                    latitude = location.getLatitude();
 
-                        try{
-                            Criteria criteria = new Criteria();
-                            criteria.setAccuracy(Criteria.NO_REQUIREMENT);
-                            criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
-                            criteria.setAltitudeRequired(false);
-                            criteria.setBearingRequired(false);
-                            criteria.setSpeedRequired(false);
-                            criteria.setCostAllowed(true);
-                            String bestProvider = locationManager.getBestProvider(criteria, true);
-                            @SuppressLint("MissingPermission")
-                            Location location = locationManager.getLastKnownLocation(bestProvider);
-                            longitude = location.getLongitude();
-                            latitude = location.getLatitude();
+                                    locationSelect = longitude + ":" + latitude;
+                                    doneBtn.setEnabled(true);
+                                    doneBtn.setText("완료");
+                                }catch(Exception e){
+                                    Log.e("Error", e.toString());
+                                    Toast.makeText(LocationActivity.this, "현재위치를 확인하지 못했습니다.\n다시 시도하거나 직접 지역을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                                    doneBtn.setEnabled(false);
+                                    doneBtn.setText("지역을 다시 선택해주세요.");
+                                }
+                            }
+                        });
+                        builder.create().show();
 
-                            locationSelect = longitude + ":" + latitude;
-                            doneBtn.setEnabled(true);
-                            doneBtn.setText("완료");
-
-                            // Get Address from Lat, Lang Value
-                            //Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.KOREA);
-                            //List<Address> address;
-                            //address = geocoder.getFromLocation(latitude, longitude, 1);
-
-                            //if (address != null && address.size() > 0) {
-                            //    String currentLocationAddress = address.get(0).getAddressLine(0);
-                            //    Toast.makeText(getApplicationContext(), currentLocationAddress, Toast.LENGTH_SHORT).show();
-                            //}
-                        }catch(Exception e){
-                            Log.e("Error", e.toString());
-                            doneBtn.setEnabled(false);
-                            doneBtn.setText("현재 위치를 확인하지 못했습니다. 다시시도하거나 직접 지역을 선택해주세요.");
-                        }
                         break;
                     default:
                         doneBtn.setEnabled(true);

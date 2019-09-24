@@ -47,7 +47,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
-            android:text="설정이 완료되지 않았습니다."
+            android:text="지역을 선택해주세요."
             android:enabled="false"
             android:id="@+id/location_btn_done"/>
 
