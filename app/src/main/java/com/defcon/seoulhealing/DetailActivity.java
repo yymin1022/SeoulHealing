@@ -1,6 +1,7 @@
 package com.defcon.seoulhealing;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
@@ -18,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,7 +54,17 @@ String API_URL = "";
 
         API_URL = String.format(Locale.getDefault(), API_URL_DEFAULT, themeID, contentID);
 
+        setToolBarLayout();
+
         new getJSON().execute();
+    }
+
+    private void setToolBarLayout() {
+        Toolbar toolbar = findViewById(R.id.detail_toolBar);
+        setSupportActionBar(toolbar);
+
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapseBar);
+        collapsingToolbarLayout.setTitle(themeName);
     }
 
     private class getJSON extends AsyncTask<Void, Void, Void> {
@@ -80,7 +93,7 @@ String API_URL = "";
                 for(int i = 0; i < jArr.length(); i++) {
                     json = jArr.getJSONObject(i);
 
-                    String imgUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
+                    //String imgUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
                     name = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
                     addressOld = json.getString("COT_ADDR_FULL_OLD");
                     addressNew = json.getString("COT_ADDR_FULL_NEW");
@@ -106,11 +119,12 @@ String API_URL = "";
                     }else{
                         address = addressNew;
                     }
-
+                    /*
                     HttpURLConnection connection = (HttpURLConnection) new URL(imgUrl).openConnection();
                     connection.connect();
                     InputStream input = connection.getInputStream();
                     img = new BitmapDrawable(getResources(), BitmapFactory.decodeStream(input));
+                     */
                 }
 
             }catch (Exception e) {
@@ -125,7 +139,7 @@ String API_URL = "";
             super.onPostExecute(aVoid);
             progressDialog.cancel();
 
-            ImageView imgView = findViewById(R.id.detail_img);
+            //ImageView imgView = findViewById(R.id.detail_img);
             TextView tv_name = findViewById(R.id.detail_text_name);
             TextView tv_address = findViewById(R.id.detail_text_address);
             TextView tv_info1 = findViewById(R.id.detail_text_info_1);
@@ -141,7 +155,7 @@ String API_URL = "";
             TextView tv_info_name5 = findViewById(R.id.detail_text_info_name_5);
             TextView tv_info_name6 = findViewById(R.id.detail_text_info_name_6);
 
-            imgView.setImageDrawable(img);
+            //imgView.setImageDrawable(img);
             tv_name.setText(name);
             tv_address.setText(address);
             tv_info1.setText(info1);
@@ -187,13 +201,13 @@ String API_URL = "";
 
         private void checkContents(TextView textName, TextView textInfo1, TextView textInfo2, TextView textInfo3, TextView textInfo4, TextView textInfo5, TextView textInfo6) {
 
-            LinearLayout layoutCardView = findViewById(R.id.layout_detail_cardview);
-            CardView cardInfo1 = findViewById(R.id.detail_card_info1);
-            CardView cardInfo2 = findViewById(R.id.detail_card_info2);
-            CardView cardInfo3 = findViewById(R.id.detail_card_info3);
-            CardView cardInfo4 = findViewById(R.id.detail_card_info4);
-            CardView cardInfo5 = findViewById(R.id.detail_card_info5);
-            CardView cardInfo6 = findViewById(R.id.detail_card_info6);
+            LinearLayout layoutCardView = findViewById(R.id.detail_layout_cardview);
+            LinearLayout layoutInfo1 = findViewById(R.id.detail_layout_info1);
+            LinearLayout layoutInfo2 = findViewById(R.id.detail_layout_info2);
+            LinearLayout layoutInfo3 = findViewById(R.id.detail_layout_info3);
+            LinearLayout layoutInfo4 = findViewById(R.id.detail_layout_info4);
+            LinearLayout layoutInfo5 = findViewById(R.id.detail_layout_info5);
+            LinearLayout layoutInfo6 = findViewById(R.id.detail_layout_info6);
 
             if(textName.getText().toString().equals("")) {
                 Toast.makeText(getApplicationContext(), "내용을 불러오는 중 오류가 발생했습니다", Toast.LENGTH_SHORT).show();
@@ -201,27 +215,27 @@ String API_URL = "";
             }
 
             if(textInfo1.getText().toString().equals("")) {
-                layoutCardView.removeView(cardInfo1);
+                layoutCardView.removeView(layoutInfo1);
             }
 
             if(textInfo2.getText().toString().equals("")) {
-                layoutCardView.removeView(cardInfo2);
+                layoutCardView.removeView(layoutInfo2);
             }
 
             if(textInfo3.getText().toString().equals("")) {
-                layoutCardView.removeView(cardInfo3);
+                layoutCardView.removeView(layoutInfo3);
             }
 
             if(textInfo4.getText().toString().equals("")) {
-                layoutCardView.removeView(cardInfo4);
+                layoutCardView.removeView(layoutInfo4);
             }
 
             if(textInfo5.getText().toString().equals("")) {
-                layoutCardView.removeView(cardInfo5);
+                layoutCardView.removeView(layoutInfo5);
             }
 
             if(textInfo6.getText().toString().equals("")) {
-                layoutCardView.removeView(cardInfo6);
+                layoutCardView.removeView(layoutInfo6);
             }
         }
 
@@ -291,11 +305,10 @@ String API_URL = "";
             String fullUrl = "";
             if(address.equals("등록된 주소가 없습니다.")) {
                 fullUrl = url + name;
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl)));
             } else {
                 fullUrl = url + address;
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl)));
             }
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl)));
         }
 
     }
