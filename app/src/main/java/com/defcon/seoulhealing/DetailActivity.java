@@ -14,6 +14,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,11 +74,14 @@ String API_URL = "";
         Drawable img;
         String name, address, addressOld, addressNew, info1, info2, info3, info4, info5, info6, infoName1, infoName2, infoName3, infoName4, infoName5, infoName6;
 
+        LinearLayout detailLayout = findViewById(R.id.detail_layout);
+
         ProgressDialog progressDialog = new ProgressDialog(DetailActivity.this);
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            detailLayout.setVisibility(View.INVISIBLE);
             progressDialog.setMessage("Loading...");
             progressDialog.show();
         }
@@ -94,21 +99,21 @@ String API_URL = "";
                     json = jArr.getJSONObject(i);
 
                     //String imgUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
-                    name = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    name = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
                     addressOld = json.getString("COT_ADDR_FULL_OLD");
                     addressNew = json.getString("COT_ADDR_FULL_NEW");
-                    info1 = json.getString("COT_VALUE_01").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    info2 = json.getString("COT_VALUE_02").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    info3 = json.getString("COT_VALUE_03").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    info4 = json.getString("COT_VALUE_04").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    info5 = json.getString("COT_VALUE_05").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    info6 = json.getString("COT_VALUE_06").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    infoName1 = json.getString("COT_NAME_01").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    infoName2 = json.getString("COT_NAME_02").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    infoName3 = json.getString("COT_NAME_03").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    infoName4 = json.getString("COT_NAME_04").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    infoName5 = json.getString("COT_NAME_05").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    infoName6 = json.getString("COT_NAME_06").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    info1 = json.getString("COT_VALUE_01").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    info2 = json.getString("COT_VALUE_02").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    info3 = json.getString("COT_VALUE_03").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    info4 = json.getString("COT_VALUE_04").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    info5 = json.getString("COT_VALUE_05").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    info6 = json.getString("COT_VALUE_06").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    infoName1 = json.getString("COT_NAME_01").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    infoName2 = json.getString("COT_NAME_02").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    infoName3 = json.getString("COT_NAME_03").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    infoName4 = json.getString("COT_NAME_04").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    infoName5 = json.getString("COT_NAME_05").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    infoName6 = json.getString("COT_NAME_06").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
 
                     if(addressNew.equals("")){
                         if(addressOld.equals("")){
@@ -197,6 +202,9 @@ String API_URL = "";
             btnShare.setOnClickListener(onClickListener);
             btnNavi.setOnClickListener(onClickListener);
             btnMap.setOnClickListener(onClickListener);
+
+            detailLayout.setVisibility(View.VISIBLE);
+            startActivityAnimation();
         }
 
         private void checkContents(TextView textName, TextView textInfo1, TextView textInfo2, TextView textInfo3, TextView textInfo4, TextView textInfo5, TextView textInfo6) {
@@ -311,6 +319,23 @@ String API_URL = "";
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(fullUrl)));
         }
 
+    }
+
+    private void startActivityAnimation() {
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapseBar);
+        CardView cardName = findViewById(R.id.detail_cardview_name);
+        CardView cardInfo = findViewById(R.id.detail_cardview_info);
+        LinearLayout layoutFuncBtn = findViewById(R.id.detail_layout_function_btn);
+
+        Animation collapseBarAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in_detail_header);
+        Animation cardNameAnim = AnimationUtils.loadAnimation(this, R.anim.translate_detail_card_name);
+        Animation cardInfoAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in_detail_card_info);
+        Animation funcBtnAnim = AnimationUtils.loadAnimation(this, R.anim.translate_detail_btn);
+
+        collapsingToolbarLayout.startAnimation(collapseBarAnim);
+        cardName.startAnimation(cardNameAnim);
+        cardInfo.startAnimation(cardInfoAnim);
+        layoutFuncBtn.startAnimation(funcBtnAnim);
     }
 
     public String getStringFromUrl(String pUrl){

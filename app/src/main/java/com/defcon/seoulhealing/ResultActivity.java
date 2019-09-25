@@ -225,13 +225,13 @@ public class ResultActivity extends AppCompatActivity{
                 for(int i = 0; i < jArr.length(); i++){
                     json = jArr.getJSONObject(i);
 
-                    String healingTitle = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    String healingTheme = json.getString("THM_THEME_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    String healingThemeID = json.getString("COT_THEME_ID").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    String healingTitle = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    String healingTheme = json.getString("THM_THEME_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    String healingThemeID = json.getString("COT_THEME_ID").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
                     String healingAddress;
-                    String healingAddressOld = json.getString("COT_ADDR_FULL_OLD").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    String healingAddressNew = json.getString("COT_ADDR_FULL_NEW").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
-                    String healingContentID = json.getString("COT_CONTS_ID").replaceAll("&#91;", "[").replaceAll("&#93;", "]");
+                    String healingAddressOld = json.getString("COT_ADDR_FULL_OLD").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    String healingAddressNew = json.getString("COT_ADDR_FULL_NEW").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+                    String healingContentID = json.getString("COT_CONTS_ID").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
 
                     if(healingAddressNew.equals("")){
                         if(healingAddressOld.equals("")){
