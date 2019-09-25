@@ -191,7 +191,7 @@ String API_URL = "";
                             break;
 
                         case R.id.detail_btn_map :
-                            startGoogleMap("https://www.google.com/maps/place/");
+                            startGoogleMap("https://www.google.com/maps/search/");
                             break;
                     }
                 }
