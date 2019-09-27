@@ -54,24 +54,19 @@ public class ResultActivity extends AppCompatActivity{
 
         currentTheme = getIntent().getStringExtra("THEME");
         currentLocation = getIntent().getStringExtra("LOCATION");
-        Intent themeIntent = new Intent(ResultActivity.this, DetailActivity.class);
 
         switch(currentTheme){
             case "ACTIVITY":
                 headerImage.setImageResource(R.drawable.result_header_activity);
-                themeIntent.putExtra("THEME_HEADER", "HEADER_ACTIVITY");
                 break;
             case "CHILD":
                 headerImage.setImageResource(R.drawable.result_header_child);
-                themeIntent.putExtra("THEME_HEADER", "HEADER_CHILD");
                 break;
             case "RELAX":
                 headerImage.setImageResource(R.drawable.result_header_relax);
-                themeIntent.putExtra("THEME_HEADER", "HEADER_RELAX");
                 break;
             case "TRAVEL":
                 headerImage.setImageResource(R.drawable.result_header_travel);
-                themeIntent.putExtra("THEME_HEADER", "HEADER_TRAVEL");
                 break;
 
         }
@@ -265,6 +260,7 @@ public class ResultActivity extends AppCompatActivity{
                     healingDetailIntent.putExtra("CONTENT_ID", itemData.get(i).getContentIDStr());
                     healingDetailIntent.putExtra("THEME_ID", itemData.get(i).getThemeIDStr());
                     healingDetailIntent.putExtra("THEME_NAME", itemData.get(i).getThemeStr());
+                    healingDetailIntent.putExtra("THEME", currentTheme);
                     startActivity(healingDetailIntent);
                 }
             });

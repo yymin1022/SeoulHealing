@@ -10,31 +10,36 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+            android:layout_height="256dp"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/detail_collapseBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="@color/colorPrimaryDark">
 
                 <ImageView
                     android:id="@+id/detail_img_header"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:scaleType="fitCenter"
-                    app:layout_collapseMode="parallax" />
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"
+                    android:fitsSystemWindows="true"/>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/detail_toolBar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
+                    android:gravity="center_vertical"
                     app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>

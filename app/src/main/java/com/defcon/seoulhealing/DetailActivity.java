@@ -6,8 +6,6 @@ import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -40,6 +38,7 @@ public class DetailActivity extends AppCompatActivity {
 String contentID = "";
 String themeID = "";
 String themeName = "";
+String currentTheme = "";
 
 String API_URL_DEFAULT = "https://map.seoul.go.kr/smgis/apps/poi.do?cmd=getNewContentsDetail&key=e284ba69d2b34c208f15160fdb8a8e8c&theme_id=%s&conts_id=%s";
 String API_URL = "";
@@ -49,10 +48,10 @@ String API_URL = "";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Intent intent = getIntent();
-        themeID = intent.getStringExtra("THEME_ID");
-        contentID = intent.getStringExtra("CONTENT_ID");
-        themeName = intent.getStringExtra("THEME_NAME");
+        themeID = getIntent().getStringExtra("THEME_ID");
+        contentID = getIntent().getStringExtra("CONTENT_ID");
+        themeName = getIntent().getStringExtra("THEME_NAME");
+        currentTheme = getIntent().getStringExtra("THEME");
 
         API_URL = String.format(Locale.getDefault(), API_URL_DEFAULT, themeID, contentID);
 
@@ -69,6 +68,25 @@ String API_URL = "";
         collapsingToolbarLayout.setTitle(themeName);
 
         ImageView detailHeader = findViewById(R.id.detail_img_header);
+
+        switch (currentTheme) {
+            case "ACTIVITY" :
+                detailHeader.setImageResource(R.drawable.img_detail_header_activity);
+                break;
+
+            case "CHILD" :
+                detailHeader.setImageResource(R.drawable.img_detail_header_child);
+                break;
+
+            case "RELAX" :
+                detailHeader.setImageResource(R.drawable.img_detail_header_relax);
+                break;
+
+            case "TRAVEL" :
+                detailHeader.setImageResource(R.drawable.img_detail_header_travel);
+                break;
+        }
+
     }
 
     private class getJSON extends AsyncTask<Void, Void, Void> {
