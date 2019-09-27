@@ -67,6 +67,8 @@ String API_URL = "";
 
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapseBar);
         collapsingToolbarLayout.setTitle(themeName);
+
+        ImageView detailHeader = findViewById(R.id.detail_img_header);
     }
 
     private class getJSON extends AsyncTask<Void, Void, Void> {

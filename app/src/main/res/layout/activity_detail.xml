@@ -24,6 +24,7 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
+                    android:id="@+id/detail_img_header"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:src="@mipmap/ic_launcher"
