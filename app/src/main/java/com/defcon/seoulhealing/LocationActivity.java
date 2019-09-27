@@ -48,7 +48,7 @@ public class LocationActivity extends AppCompatActivity {
         }
 
         final ArrayList<String> locationArray = new ArrayList<>();
-        locationArray.add("힐링장소를 찾을 구를 선택해주세요.");
+        locationArray.add("지역을 선택해주세요.");
         locationArray.add("현재위치를 중심으로 찾기");
         locationArray.add("강남구");
         locationArray.add("강동구");
