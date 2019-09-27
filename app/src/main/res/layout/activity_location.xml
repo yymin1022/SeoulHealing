@@ -13,16 +13,11 @@
         android:gravity="center"
         android:text="위치 지정 관련 안내문구\nㅁㄴㅇㄹ\nㅁㄴㅇㄹ"/>
 
-    <androidx.cardview.widget.CardView
-        android:layout_gravity="bottom"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp">
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_bg">
 
         <Spinner
             android:layout_width="match_parent"
@@ -30,27 +25,15 @@
             android:id="@+id/location_spinner_location"
             android:spinnerMode="dialog"/>
 
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@android:color/transparent"
-            android:text="지역을 선택해주세요."
-            android:enabled="false"
-            android:id="@+id/location_btn_done"/>
-
-    </androidx.cardview.widget.CardView>
+        android:layout_margin="10dp"
+        android:background="@drawable/btn_bg"
+        android:text="지역을 선택해주세요."
+        android:enabled="false"
+        android:id="@+id/location_btn_done"/>
 
 </LinearLayout>
