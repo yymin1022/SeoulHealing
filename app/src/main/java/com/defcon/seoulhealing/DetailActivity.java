@@ -306,7 +306,9 @@ String API_URL = "";
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TEXT, fullText);
-            startActivity(intent);
+
+            Intent shareIntent = Intent.createChooser(intent, "장소 공유");
+            startActivity(shareIntent);
         }
 
         private void startGoogleMap(String url) {
