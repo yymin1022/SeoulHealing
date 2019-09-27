@@ -76,7 +76,8 @@ public class LocationActivity extends AppCompatActivity {
         locationArray.add("중구");
         locationArray.add("중랑구");
 
-        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, locationArray);
+        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_location_item, locationArray);
+        locationArrayAdapter.setDropDownViewResource(R.layout.spinner_location_item);
         locationSpinner.setAdapter(locationArrayAdapter);
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
