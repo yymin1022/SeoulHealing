@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 if(isNetworkConnected()) {
                     switch(view.getId()){
                         case R.id.main_btn_activity:
-                            themeIntent.putExtra("THEME", "ACTIVITY");
+                                   themeIntent.putExtra("THEME", "ACTIVITY");
                             setThemeButtonAnimation(btnActivity, R.anim.scale_btn_activity, btnChild, btnRelax, btnTravel, themeIntent);
                             break;
                         case R.id.main_btn_child:
