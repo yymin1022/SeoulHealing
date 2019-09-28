@@ -2,6 +2,7 @@ package com.defcon.seoulhealing;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -9,7 +10,10 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -31,6 +35,7 @@ public class WelcomeActivity extends AppCompatActivity {
         doneBtn = findViewById(R.id.welcome_btn_done);
         locationBtn = findViewById(R.id.welcome_btn_locationPermission);
         setupLocationBtn();
+        startActivityAnimation();
 
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,5 +97,16 @@ public class WelcomeActivity extends AppCompatActivity {
             doneBtn.setText("설정이 완료되지 않았습니다.");
             doneBtn.setTextColor(Color.parseColor("#afc8df"));
         }
+    }
+
+    private void startActivityAnimation() {
+        ConstraintLayout welcomeLayout = findViewById(R.id.welcome_layout);
+        ImageView welcomeLocation = findViewById(R.id.welcome_img);
+
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        Animation bounce = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.bounce_welcome_map);
+
+        welcomeLayout.startAnimation(fadeIn);
+        welcomeLocation.startAnimation(bounce);
     }
 }
