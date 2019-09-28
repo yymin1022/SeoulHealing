@@ -23,7 +23,8 @@
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:contentScrim="@color/colorPrimaryDark">
+                app:contentScrim="@color/colorPrimaryDark"
+                app:expandedTitleTextAppearance="@style/DetailHeaderText">
 
                 <ImageView
                     android:id="@+id/detail_img_header"

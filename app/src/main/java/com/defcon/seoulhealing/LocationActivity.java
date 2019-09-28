@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -14,9 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,8 +51,10 @@ public class LocationActivity extends AppCompatActivity {
             startActivity(new Intent(this, WelcomeActivity.class));
         }
 
+        startActivityAnimation();
+
         final ArrayList<String> locationArray = new ArrayList<>();
-        locationArray.add("지역을 선택해주세요.");
+        locationArray.add("지역을 선택해주세요");
         locationArray.add("현재위치를 중심으로 찾기");
         locationArray.add("강남구");
         locationArray.add("강동구");
@@ -85,7 +91,8 @@ public class LocationActivity extends AppCompatActivity {
                 switch(i){
                     case 0:
                         doneBtn.setEnabled(false);
-                        doneBtn.setText("지역을 선택해주세요.");
+                        doneBtn.setTextColor(Color.parseColor("#afc8df"));
+                        doneBtn.setText("지역이 선택되지 않았습니다");
                         break;
                     case 1:
                         AlertDialog.Builder builder = new AlertDialog.Builder(LocationActivity.this);
@@ -109,12 +116,14 @@ public class LocationActivity extends AppCompatActivity {
 
                                     locationSelect = longitude + ":" + latitude;
                                     doneBtn.setEnabled(true);
-                                    doneBtn.setText("완료");
+                                    doneBtn.setTextColor(Color.parseColor("#ffffff"));
+                                    doneBtn.setText("다음");
                                 }catch(Exception e){
                                     Log.e("Error", e.toString());
                                     Toast.makeText(LocationActivity.this, "현재위치를 확인하지 못했습니다.\n다시 시도하거나 직접 지역을 선택해주세요.", Toast.LENGTH_SHORT).show();
                                     doneBtn.setEnabled(false);
-                                    doneBtn.setText("지역을 다시 선택해주세요.");
+                                    doneBtn.setTextColor(Color.parseColor("#afc8df"));
+                                    doneBtn.setText("지역을 다시 선택해주세요");
                                 }
                             }
                         });
@@ -123,7 +132,8 @@ public class LocationActivity extends AppCompatActivity {
                         break;
                     default:
                         doneBtn.setEnabled(true);
-                        doneBtn.setText("완료");
+                        doneBtn.setTextColor(Color.parseColor("#ffffff"));
+                        doneBtn.setText("다음");
                         locationSelect = locationArray.get(i);
                         break;
                 }
@@ -143,5 +153,11 @@ public class LocationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void startActivityAnimation() {
+        ImageView locationMap = findViewById(R.id.location_img_map);
+        Animation blink = AnimationUtils.loadAnimation(this, R.anim.blink_location_map);
+        locationMap.startAnimation(blink);
     }
 }

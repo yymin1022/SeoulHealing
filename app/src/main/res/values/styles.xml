@@ -27,5 +27,14 @@
     <style name="NonStatusBar" parent="AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+    
+    <style name="DetailHeaderText" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">0.0</item>
+        <item name="android:shadowRadius">50.0</item>
+    </style>
 
 </resources>

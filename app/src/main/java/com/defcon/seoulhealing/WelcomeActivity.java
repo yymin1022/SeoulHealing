@@ -52,7 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder locationDialog = new AlertDialog.Builder(WelcomeActivity.this);
                 locationDialog.setTitle("위치정보 사용 권한");
-                locationDialog.setMessage("원활한 애플리케이션의 이용을 위해 위치정보 사용 권한을 허용해주셔야합니다.");
+                locationDialog.setMessage("원활한 애플리케이션의 이용을 위해 위치정보 사용 권한을 허용해주셔야합니다");
                 locationDialog.setCancelable(false);
                 locationDialog.setPositiveButton("동의하기", new DialogInterface.OnClickListener() {
                     @Override
@@ -61,7 +61,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                 .setPermissionListener(new PermissionListener() {
                                     @Override
                                     public void onPermissionGranted() {
-                                        Toast.makeText(getApplicationContext(), "위치정보 사용 권한이 허용되었습니다.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "위치정보 사용 권한이 허용되었습니다", Toast.LENGTH_SHORT).show();
                                         setupLocationBtn();
                                     }
 
@@ -84,7 +84,7 @@ public class WelcomeActivity extends AppCompatActivity {
         if(TedPermission.isGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)){
             locationBtn.setEnabled(false);
             locationBtn.setBackgroundColor(Color.parseColor("#00000000"));
-            locationBtn.setText("위치정보 사용 권한이 허용되었습니다.");
+            locationBtn.setText("위치정보 사용 권한이 허용되었습니다");
 
             doneBtn.setEnabled(true);
             doneBtn.setText("다음");
@@ -94,7 +94,7 @@ public class WelcomeActivity extends AppCompatActivity {
             locationBtn.setText("위치정보 사용 권한 허용하기");
 
             doneBtn.setEnabled(false);
-            doneBtn.setText("설정이 완료되지 않았습니다.");
+            doneBtn.setText("설정이 완료되지 않았습니다");
             doneBtn.setTextColor(Color.parseColor("#afc8df"));
         }
     }

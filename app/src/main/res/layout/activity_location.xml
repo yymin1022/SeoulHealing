@@ -7,14 +7,17 @@
     android:background="@color/colorPrimary">
 
     <TextView
+        android:id="@+id/location_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="힐링할 지역을 선택해주세요."
+        android:text="지역을 선택해주세요"
         android:textColor="@android:color/white"
-        android:textSize="25sp"/>
+        android:textStyle="bold"
+        android:textSize="30sp"/>
 
     <ImageView
+        android:id="@+id/location_img_map"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -23,6 +26,7 @@
         android:src="@drawable/img_map_selection_seoul" />
 
     <FrameLayout
+        android:id="@+id/location_spinner_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -42,8 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/btn_bg"
-        android:text="지역을 선택해주세요."
-        android:textColor="@android:color/white"
+        android:text="지역이 선택되지 않았습니다"
+        android:textStyle="bold"
         android:enabled="false"
         android:id="@+id/location_btn_done"/>
 
