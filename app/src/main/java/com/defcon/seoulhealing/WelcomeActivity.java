@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -77,16 +78,19 @@ public class WelcomeActivity extends AppCompatActivity {
     public void setupLocationBtn(){
         if(TedPermission.isGranted(this, Manifest.permission.ACCESS_FINE_LOCATION)){
             locationBtn.setEnabled(false);
+            locationBtn.setBackgroundColor(Color.parseColor("#00000000"));
             locationBtn.setText("위치정보 사용 권한이 허용되었습니다.");
 
             doneBtn.setEnabled(true);
-            doneBtn.setText("완료");
+            doneBtn.setText("다음");
+            doneBtn.setTextColor(Color.parseColor("#ffffff"));
         }else{
             locationBtn.setEnabled(true);
             locationBtn.setText("위치정보 사용 권한 허용하기");
 
             doneBtn.setEnabled(false);
             doneBtn.setText("설정이 완료되지 않았습니다.");
+            doneBtn.setTextColor(Color.parseColor("#afc8df"));
         }
     }
 }
