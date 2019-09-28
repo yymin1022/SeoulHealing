@@ -1,17 +1,23 @@
 package com.defcon.seoulhealing;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.View;
@@ -31,7 +37,11 @@ public class LocationActivity extends AppCompatActivity {
     double longitude = 0;
     String locationSelect = "";
 
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+
     Button doneBtn;
+    Location location;
     LocationManager locationManager;
     SharedPreferences prefs;
     Spinner locationSpinner;
@@ -42,6 +52,8 @@ public class LocationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_location);
 
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
+
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         doneBtn = findViewById(R.id.location_btn_done);
         locationSpinner = findViewById(R.id.location_spinner_location);
@@ -101,6 +113,7 @@ public class LocationActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try{
+                                    /*
                                     Criteria criteria = new Criteria();
                                     criteria.setAccuracy(Criteria.NO_REQUIREMENT);
                                     criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
@@ -113,8 +126,10 @@ public class LocationActivity extends AppCompatActivity {
                                     Location location = locationManager.getLastKnownLocation(bestProvider);
                                     longitude = location.getLongitude();
                                     latitude = location.getLatitude();
-
                                     locationSelect = longitude + ":" + latitude;
+                                    */
+                                    getLocationInfo(); //gps 정보 불러오는 메소드
+
                                     doneBtn.setEnabled(true);
                                     doneBtn.setTextColor(Color.parseColor("#ffffff"));
                                     doneBtn.setText("다음");
@@ -155,9 +170,99 @@ public class LocationActivity extends AppCompatActivity {
         });
     }
 
+    private void getLocationInfo() {
+        boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (!isGPSEnabled && !isNetworkEnabled) {
+            Toast.makeText(LocationActivity.this, "GPS와 네트워크 상태를 확인해주세요!", Toast.LENGTH_SHORT).show();
+        } else {
+
+            int hasFineLocationPermission = ContextCompat.checkSelfPermission(LocationActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION);
+            int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(LocationActivity.this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION);
+
+            if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) { }
+
+            if (isNetworkEnabled) {
+
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
+
+                if (locationManager != null)
+                {
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (location != null)
+                    {
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                        locationSelect = longitude + ":" + latitude;
+                    }
+                }
+            }
+
+            if (isGPSEnabled)
+            {
+                if (location == null)
+                {
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
+                    if (locationManager != null)
+                    {
+                        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        if (location != null)
+                        {
+                            latitude = location.getLatitude();
+                            longitude = location.getLongitude();
+                            locationSelect = longitude + ":" + latitude;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    final LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            if (location != null)
+            {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                locationSelect = longitude + ":" + latitude;
+            }
+        }
+
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+
+    private void stopUpdateGPS() {
+        if(locationManager != null) {
+            locationManager.removeUpdates(locationListener);
+        }
+    }
+
     private void startActivityAnimation() {
         ImageView locationMap = findViewById(R.id.location_img_map);
         Animation blink = AnimationUtils.loadAnimation(this, R.anim.blink_location_map);
         locationMap.startAnimation(blink);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopUpdateGPS();
     }
 }
