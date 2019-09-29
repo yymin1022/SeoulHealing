@@ -50,7 +50,7 @@
             <ImageView
                 android:id="@+id/list_item_img"
                 android:adjustViewBounds="true"
-                android:layout_width="100dp"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"/>
 
