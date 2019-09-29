@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -225,24 +226,73 @@ public class ResultActivity extends AppCompatActivity{
                 for(int i = 0; i < jArr.length(); i++){
                     json = jArr.getJSONObject(i);
 
+                    Drawable healingDrwable = null;
                     String healingTitle = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
                     String healingTheme = json.getString("THM_THEME_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
                     String healingThemeID = json.getString("COT_THEME_ID").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
-                    String healingAddress;
-                    String healingAddressOld = json.getString("COT_ADDR_FULL_OLD").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
-                    String healingAddressNew = json.getString("COT_ADDR_FULL_NEW").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
                     String healingContentID = json.getString("COT_CONTS_ID").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
 
-                    if(healingAddressNew.equals("")){
-                        if(healingAddressOld.equals("")){
-                            healingAddress = "등록된 주소가 없습니다.";
-                        }else{
-                            healingAddress = healingAddressOld;
-                        }
-                    }else{
-                        healingAddress = healingAddressNew;
+                    switch(healingThemeID){
+                        case "100200":
+                            healingDrwable = getDrawable(R.drawable.theme_camping);
+                            break;
+                        case "100214":
+                            healingDrwable = getDrawable(R.drawable.theme_seoulhand);
+                            break;
+                        case "100162":
+                            healingDrwable = getDrawable(R.drawable.theme_memoryseoul);
+                            break;
+                        case "100167":
+                            healingDrwable = getDrawable(R.drawable.theme_extravel);
+                            break;
+                        case "100736":
+                            healingDrwable = getDrawable(R.drawable.theme_ttareung);
+                            break;
+                        case "100362":
+                            healingDrwable = getDrawable(R.drawable.theme_mtnandpark);
+                            break;
+                        case "100235":
+                            healingDrwable = getDrawable(R.drawable.theme_bike_);
+                            break;
+                        case "100770":
+                            healingDrwable = getDrawable(R.drawable.theme_study);
+                            break;
+                        case "100123":
+                            healingDrwable = getDrawable(R.drawable.theme_sasaek);
+                            break;
+                        case "100211":
+                            healingDrwable = getDrawable(R.drawable.theme_dullegil);
+                            break;
+                        case "100304":
+                            healingDrwable = getDrawable(R.drawable.theme_jarakgil);
+                            break;
+                        case "100569":
+                            healingDrwable = getDrawable(R.drawable.theme_walking_seoul);
+                            break;
+                        case "100715":
+                            healingDrwable = getDrawable(R.drawable.theme_trail);
+                            break;
+                        case "11101096":
+                            healingDrwable = getDrawable(R.drawable.theme_7017);
+                            break;
+                        case "100891":
+                            healingDrwable = getDrawable(R.drawable.theme_sunryegil);
+                            break;
+                        case "11101181":
+                            healingDrwable = getDrawable(R.drawable.theme_no_car);
+                            break;
+                        case "100361":
+                            healingDrwable = getDrawable(R.drawable.theme_forest_yua);
+                            break;
+                        case "100769":
+                            healingDrwable = getDrawable(R.drawable.theme_gwanak_family);
+                            break;
+                        case "100325":
+                            healingDrwable = getDrawable(R.drawable.theme_playground);
+                            break;
                     }
-                    itemData.add(new HealingListItem(null, healingTitle, healingAddress, healingTheme, healingThemeID, healingContentID));
+
+                    itemData.add(new HealingListItem(healingDrwable, healingTitle, healingTheme, healingThemeID, healingContentID));
                 }
                 listAdapter = new HealingListAdapter(ResultActivity.this, itemData);
             }catch(Exception e){

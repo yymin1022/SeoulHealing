@@ -36,13 +36,11 @@ public class HealingListAdapter extends BaseAdapter{
 
         ImageView iconImageView = convertView.findViewById(R.id.list_item_img);
         TextView titleTextView = convertView.findViewById(R.id.list_item_title);
-        TextView addressTextView = convertView.findViewById(R.id.list_item_address);
         TextView themeTextView = convertView.findViewById(R.id.list_item_theme);
 
         HealingListItem listViewItem = listViewItemList.get(position);
         iconImageView.setImageDrawable(listViewItem.getImageDrawable());
         titleTextView.setText(listViewItem.getTitleStr());
-        addressTextView.setText(listViewItem.getAddressStr());
         themeTextView.setText(listViewItem.getThemeStr());
 
         return convertView;
@@ -58,11 +56,10 @@ public class HealingListAdapter extends BaseAdapter{
         return this.listViewItemList.get(position);
     }
 
-    public void addItem(Drawable icon, String title, String address, String theme, String themeID, String contentID){
-        HealingListItem item = new HealingListItem(icon, title, address, theme, themeID, contentID);
+    public void addItem(Drawable icon, String title, String theme, String themeID, String contentID){
+        HealingListItem item = new HealingListItem(icon, title, theme, themeID, contentID);
 
         item.setImageDrawable(icon);
-        item.setAddressStr(address);
         item.setContentIDStr(contentID);
         item.setThemeStr(theme);
         item.setThemeIDStr(themeID);

@@ -5,15 +5,13 @@ import android.graphics.drawable.Drawable;
 public class HealingListItem{
     private Drawable imageDrawable;
     private String titleStr;
-    private String addressStr;
     private String themeStr;
     private String themeIDStr;
     private String contentIDStr;
 
-    public HealingListItem(Drawable imageDrawable, String titleStr, String addressStr, String themeStr, String themeIDStr, String contentIDStr){
+    public HealingListItem(Drawable imageDrawable, String titleStr, String themeStr, String themeIDStr, String contentIDStr){
         this.imageDrawable = imageDrawable;
         this.titleStr = titleStr;
-        this.addressStr = addressStr;
         this.themeStr = themeStr;
         this.themeIDStr = themeIDStr;
         this.contentIDStr = contentIDStr;
@@ -21,9 +19,6 @@ public class HealingListItem{
 
     public void setImageDrawable(Drawable icon){
         imageDrawable = icon;
-    }
-    public void setAddressStr(String desc){
-        addressStr = desc;
     }
     public void setContentIDStr(String contentID){
         contentIDStr = contentID;
@@ -40,9 +35,6 @@ public class HealingListItem{
 
     public Drawable getImageDrawable(){
         return this.imageDrawable;
-    }
-    public String getAddressStr(){
-        return this.addressStr;
     }
     public String getContentIDStr(){
         return this.contentIDStr;

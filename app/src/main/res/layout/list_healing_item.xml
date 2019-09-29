@@ -23,7 +23,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="15dp"
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
@@ -31,38 +30,28 @@
                     android:id="@+id/list_item_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                  android:text="name"/>
+                    android:layout_marginStart="15dp"
+                    android:text="name"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/list_item_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="address"/>
                 <TextView
                     android:id="@+id/list_item_theme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="theme"/>
+                    android:layout_marginStart="15dp"
+                    android:text="theme"
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="15dp"
-                android:orientation="vertical"
-                android:gravity="end|center_vertical">
-
-                <ImageView
-                    android:id="@+id/list_item_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/list_item_img"
+                android:adjustViewBounds="true"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
 
