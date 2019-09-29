@@ -113,32 +113,10 @@ public class LocationActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try{
-                                    /*
-                                    Criteria criteria = new Criteria();
-                                    criteria.setAccuracy(Criteria.NO_REQUIREMENT);
-                                    criteria.setPowerRequirement(Criteria.NO_REQUIREMENT);
-                                    criteria.setAltitudeRequired(false);
-                                    criteria.setBearingRequired(false);
-                                    criteria.setSpeedRequired(false);
-                                    criteria.setCostAllowed(true);
-                                    String bestProvider = locationManager.getBestProvider(criteria, true);
-                                    @SuppressLint("MissingPermission")
-                                    Location location = locationManager.getLastKnownLocation(bestProvider);
-                                    longitude = location.getLongitude();
-                                    latitude = location.getLatitude();
-                                    locationSelect = longitude + ":" + latitude;
-                                    */
                                     getLocationInfo(); //gps 정보 불러오는 메소드
 
-                                    doneBtn.setEnabled(true);
-                                    doneBtn.setTextColor(Color.parseColor("#ffffff"));
-                                    doneBtn.setText("다음");
                                 }catch(Exception e){
                                     Log.e("Error", e.toString());
-                                    Toast.makeText(LocationActivity.this, "현재위치를 확인하지 못했습니다.\n다시 시도하거나 직접 지역을 선택해주세요.", Toast.LENGTH_SHORT).show();
-                                    doneBtn.setEnabled(false);
-                                    doneBtn.setTextColor(Color.parseColor("#afc8df"));
-                                    doneBtn.setText("지역을 다시 선택해주세요");
                                 }
                             }
                         });
@@ -174,7 +152,7 @@ public class LocationActivity extends AppCompatActivity {
         boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-        if (!isGPSEnabled && !isNetworkEnabled) {
+        if (!isNetworkEnabled) {
             Toast.makeText(LocationActivity.this, "GPS와 네트워크 상태를 확인해주세요!", Toast.LENGTH_SHORT).show();
         } else {
 
@@ -192,12 +170,7 @@ public class LocationActivity extends AppCompatActivity {
                 if (locationManager != null)
                 {
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                    if (location != null)
-                    {
-                        latitude = location.getLatitude();
-                        longitude = location.getLongitude();
-                        locationSelect = longitude + ":" + latitude;
-                    }
+                    checkGPS();
                 }
             }
 
@@ -209,12 +182,7 @@ public class LocationActivity extends AppCompatActivity {
                     if (locationManager != null)
                     {
                         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                        if (location != null)
-                        {
-                            latitude = location.getLatitude();
-                            longitude = location.getLongitude();
-                            locationSelect = longitude + ":" + latitude;
-                        }
+                        checkGPS();
                     }
                 }
             }
@@ -224,12 +192,7 @@ public class LocationActivity extends AppCompatActivity {
     final LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            if (location != null)
-            {
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-                locationSelect = longitude + ":" + latitude;
-            }
+            checkGPS();
         }
 
         @Override
@@ -247,6 +210,23 @@ public class LocationActivity extends AppCompatActivity {
 
         }
     };
+    
+    private void checkGPS() {
+        if (location != null) {
+            latitude = location.getLatitude();
+            longitude = location.getLongitude();
+            locationSelect = longitude + ":" + latitude;
+
+            doneBtn.setEnabled(true);
+            doneBtn.setTextColor(Color.parseColor("#ffffff"));
+            doneBtn.setText("다음");
+        } else {
+            Toast.makeText(LocationActivity.this, "현재위치를 확인하지 못했습니다.\n다시 시도하거나 직접 지역을 선택해주세요.", Toast.LENGTH_SHORT).show();
+            doneBtn.setEnabled(false);
+            doneBtn.setTextColor(Color.parseColor("#afc8df"));
+            doneBtn.setText("지역을 다시 선택해주세요");
+        }
+    }
 
     private void stopUpdateGPS() {
         if(locationManager != null) {
