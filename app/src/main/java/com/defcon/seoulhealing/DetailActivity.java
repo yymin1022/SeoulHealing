@@ -309,7 +309,7 @@ String API_URL = "";
             }
 
             String fullText =
-                    "[SeoulHealing]" +
+                    "[Soul Rest]" +
                     "\n" +
                     "\n" +
                     "힐링이 필요한 당신에게 이 장소를 소개합니다!" +

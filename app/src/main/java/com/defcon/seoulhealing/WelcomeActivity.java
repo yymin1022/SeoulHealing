@@ -70,7 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                         setupLocationBtn();
                                     }
                                 })
-                                .setDeniedMessage("위치정보 사용 권한이 허용되지 않았습니다. 애플리케이션 사용 중 예상치 못한 문제가 발생할 수 있으며, [설절] > [앱 및 알림] > [Seoul Healing] > [권한]으로 이동하여 위치정보 사용 권한을 허용해주세요.")
+                                .setDeniedMessage("위치정보 사용 권한이 허용되지 않았습니다. 애플리케이션 사용 중 예상치 못한 문제가 발생할 수 있으며, [설절] > [앱 및 알림] > [Soul Rest] > [권한]으로 이동하여 위치정보 사용 권한을 허용해주세요.")
                                 .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION)
                                 .check();
                         }
