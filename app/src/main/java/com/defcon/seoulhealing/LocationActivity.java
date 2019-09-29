@@ -152,8 +152,11 @@ public class LocationActivity extends AppCompatActivity {
         boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-        if (!isNetworkEnabled) {
+        if (!isGPSEnabled || !isNetworkEnabled) {
             Toast.makeText(LocationActivity.this, "GPS와 네트워크 상태를 확인해주세요!", Toast.LENGTH_SHORT).show();
+            doneBtn.setEnabled(false);
+            doneBtn.setTextColor(Color.parseColor("#afc8df"));
+            doneBtn.setText("지역을 다시 선택해주세요");
         } else {
 
             int hasFineLocationPermission = ContextCompat.checkSelfPermission(LocationActivity.this,
