@@ -1,6 +1,7 @@
 package com.defcon.seoulhealing;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +38,15 @@ public class HealingListAdapter extends BaseAdapter{
         ImageView iconImageView = convertView.findViewById(R.id.list_item_img);
         TextView titleTextView = convertView.findViewById(R.id.list_item_title);
         TextView themeTextView = convertView.findViewById(R.id.list_item_theme);
+        Typeface textFont = Typeface.createFromAsset(context.getAssets(), "fonts/font_namsan.ttf" );
 
         HealingListItem listViewItem = listViewItemList.get(position);
         iconImageView.setImageDrawable(listViewItem.getImageDrawable());
         titleTextView.setText(listViewItem.getTitleStr());
         themeTextView.setText(listViewItem.getThemeStr());
+
+        titleTextView.setTypeface(textFont);
+        themeTextView.setTypeface(textFont);
 
         return convertView;
     }

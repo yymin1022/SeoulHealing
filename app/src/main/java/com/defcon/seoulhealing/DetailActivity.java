@@ -6,7 +6,7 @@ import androidx.cardview.widget.CardView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -61,11 +61,15 @@ String API_URL = "";
     }
 
     private void setToolBarLayout() {
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapseBar);
         Toolbar toolbar = findViewById(R.id.detail_toolBar);
+        Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
+
         setSupportActionBar(toolbar);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.detail_collapseBar);
         collapsingToolbarLayout.setTitle(themeName);
+        collapsingToolbarLayout.setExpandedTitleTypeface(textFont);
+        collapsingToolbarLayout.setCollapsedTitleTypeface(textFont);
 
         ImageView detailHeader = findViewById(R.id.detail_img_header);
 
@@ -90,8 +94,6 @@ String API_URL = "";
     }
 
     private class getJSON extends AsyncTask<Void, Void, Void> {
-
-        Drawable img;
         String name, address, addressOld, addressNew, info1, info2, info3, info4, info5, info6, infoName1, infoName2, infoName3, infoName4, infoName5, infoName6;
 
         LinearLayout detailLayout = findViewById(R.id.detail_layout);
@@ -118,7 +120,6 @@ String API_URL = "";
                 for(int i = 0; i < jArr.length(); i++) {
                     json = jArr.getJSONObject(i);
 
-                    //String imgUrl = String.format(Locale.getDefault(), "https://map.seoul.go.kr%s", json.getString("COT_IMG_MAIN_URL"));
                     name = json.getString("COT_CONTS_NAME").replaceAll("&#91;", "[").replaceAll("&#93;", "]").replaceAll("&lt;", "<").replaceAll("&gt;", ">");
                     addressOld = json.getString("COT_ADDR_FULL_OLD");
                     addressNew = json.getString("COT_ADDR_FULL_NEW");
@@ -144,12 +145,6 @@ String API_URL = "";
                     }else{
                         address = addressNew;
                     }
-                    /*
-                    HttpURLConnection connection = (HttpURLConnection) new URL(imgUrl).openConnection();
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-                    img = new BitmapDrawable(getResources(), BitmapFactory.decodeStream(input));
-                     */
                 }
 
             }catch (Exception e) {
@@ -164,7 +159,6 @@ String API_URL = "";
             super.onPostExecute(aVoid);
             progressDialog.cancel();
 
-            //ImageView imgView = findViewById(R.id.detail_img);
             TextView tv_name = findViewById(R.id.detail_text_name);
             TextView tv_address = findViewById(R.id.detail_text_address);
             TextView tv_info1 = findViewById(R.id.detail_text_info_1);
@@ -179,8 +173,8 @@ String API_URL = "";
             TextView tv_info_name4 = findViewById(R.id.detail_text_info_name_4);
             TextView tv_info_name5 = findViewById(R.id.detail_text_info_name_5);
             TextView tv_info_name6 = findViewById(R.id.detail_text_info_name_6);
+            Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
 
-            //imgView.setImageDrawable(img);
             tv_name.setText(name);
             tv_address.setText(address);
             tv_info1.setText(info1);
@@ -195,6 +189,21 @@ String API_URL = "";
             tv_info_name4.setText(infoName4);
             tv_info_name5.setText(infoName5);
             tv_info_name6.setText(infoName6);
+
+            tv_name.setTypeface(textFont);
+            tv_address.setTypeface(textFont);
+            tv_info1.setTypeface(textFont);
+            tv_info2.setTypeface(textFont);
+            tv_info3.setTypeface(textFont);
+            tv_info4.setTypeface(textFont);
+            tv_info5.setTypeface(textFont);
+            tv_info6.setTypeface(textFont);
+            tv_info_name1.setTypeface(textFont);
+            tv_info_name2.setTypeface(textFont);
+            tv_info_name3.setTypeface(textFont);
+            tv_info_name4.setTypeface(textFont);
+            tv_info_name5.setTypeface(textFont);
+            tv_info_name6.setTypeface(textFont);
 
             checkContents(tv_name, tv_info1, tv_info2, tv_info3, tv_info4, tv_info5, tv_info6);
 
@@ -216,12 +225,17 @@ String API_URL = "";
                     }
                 }
             };
-            Button btnShare = findViewById(R.id.detail_btn_share);
-            Button btnNavi = findViewById(R.id.detail_btn_navi);
             Button btnMap = findViewById(R.id.detail_btn_map);
-            btnShare.setOnClickListener(onClickListener);
-            btnNavi.setOnClickListener(onClickListener);
+            Button btnNavi = findViewById(R.id.detail_btn_navi);
+            Button btnShare = findViewById(R.id.detail_btn_share);
+
             btnMap.setOnClickListener(onClickListener);
+            btnNavi.setOnClickListener(onClickListener);
+            btnShare.setOnClickListener(onClickListener);
+
+            btnMap.setTypeface(textFont);
+            btnNavi.setTypeface(textFont);
+            btnShare.setTypeface(textFont);
 
             detailLayout.setVisibility(View.VISIBLE);
             startActivityAnimation();

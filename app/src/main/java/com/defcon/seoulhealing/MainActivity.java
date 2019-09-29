@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -34,8 +35,10 @@ public class MainActivity extends AppCompatActivity {
         ImageView locationImage = findViewById(R.id.main_image_location_logo);
         ImageView mapImage = findViewById(R.id.main_image_location_map);
         TextView locationText = findViewById(R.id.main_text_location);
+        Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
 
         location = getIntent().getStringExtra("LOCATION");
+        locationText.setTypeface(textFont);
         switch(location){
             case "강남구":
                 locationImage.setImageResource(R.drawable.img_ci_gangnam);
