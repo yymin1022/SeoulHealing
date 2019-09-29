@@ -1,15 +1,12 @@
 package com.defcon.seoulhealing;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.util.Log;
@@ -43,7 +39,7 @@ public class LocationActivity extends AppCompatActivity {
     String locationSelect = "";
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60;
 
     Button doneBtn;
     Location location;
@@ -51,6 +47,7 @@ public class LocationActivity extends AppCompatActivity {
     SharedPreferences prefs;
     Spinner locationSpinner;
     TextView textView;
+    Typeface textFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +56,9 @@ public class LocationActivity extends AppCompatActivity {
 
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
 
-        Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
-
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
 
         doneBtn = findViewById(R.id.location_btn_done);
         locationSpinner = findViewById(R.id.location_spinner_location);
@@ -69,8 +66,6 @@ public class LocationActivity extends AppCompatActivity {
 
         doneBtn.setTypeface(textFont);
         textView.setTypeface(textFont);
-
-        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
         if(prefs.getBoolean("isFirst", true)){
             startActivity(new Intent(this, WelcomeActivity.class));
@@ -117,7 +112,7 @@ public class LocationActivity extends AppCompatActivity {
                 return v;
             }
 
-            public View getDropDownView(int position,  View convertView,  ViewGroup parent) {
+            public View getDropDownView(int position,  View convertView, @NonNull ViewGroup parent) {
                 View v =super.getDropDownView(position, convertView, parent);
                 Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
                 ((TextView) v).setTypeface(textFont);
@@ -143,7 +138,7 @@ public class LocationActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 try{
-                                    getLocationInfo(); //gps 정보 불러오는 메소드
+                                    getLocationInfo();
 
                                 }catch(Exception e){
                                     Log.e("Error", e.toString());
@@ -187,33 +182,22 @@ public class LocationActivity extends AppCompatActivity {
             doneBtn.setEnabled(false);
             doneBtn.setTextColor(Color.parseColor("#afc8df"));
             doneBtn.setText("지역을 다시 선택해주세요");
-        } else {
+        }else{
+            ContextCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+            ContextCompat.checkSelfPermission(LocationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
-            int hasFineLocationPermission = ContextCompat.checkSelfPermission(LocationActivity.this,
-                    Manifest.permission.ACCESS_FINE_LOCATION);
-            int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(LocationActivity.this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION);
-
-            if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED && hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) { }
-
-            if (isNetworkEnabled) {
-
+            if(isNetworkEnabled){
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
-
-                if (locationManager != null)
-                {
+                if(locationManager != null){
                     location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     checkGPS();
                 }
             }
 
-            if (isGPSEnabled)
-            {
-                if (location == null)
-                {
+            if(isGPSEnabled){
+                if(location == null){
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, locationListener);
-                    if (locationManager != null)
-                    {
+                    if(locationManager != null){
                         location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                         checkGPS();
                     }

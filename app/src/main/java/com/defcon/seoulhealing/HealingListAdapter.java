@@ -13,8 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class HealingListAdapter extends BaseAdapter{
-    Context context;
-    ArrayList<HealingListItem> listViewItemList;
+    private Context context;
+    private ArrayList<HealingListItem> listViewItemList;
 
     public HealingListAdapter(Context context, ArrayList<HealingListItem> listViewItemList){
         this.context = context;
