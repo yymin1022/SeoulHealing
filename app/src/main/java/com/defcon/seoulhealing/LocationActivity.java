@@ -8,12 +8,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -21,6 +24,7 @@ import androidx.core.content.ContextCompat;
 
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -28,6 +32,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -45,6 +50,7 @@ public class LocationActivity extends AppCompatActivity {
     LocationManager locationManager;
     SharedPreferences prefs;
     Spinner locationSpinner;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +59,17 @@ public class LocationActivity extends AppCompatActivity {
 
         startActivity(new Intent(getBaseContext(), SplashActivity.class));
 
+        Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         doneBtn = findViewById(R.id.location_btn_done);
         locationSpinner = findViewById(R.id.location_spinner_location);
+        textView = findViewById(R.id.location_textview);
+
+        doneBtn.setTypeface(textFont);
+        textView.setTypeface(textFont);
+
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
         if(prefs.getBoolean("isFirst", true)){
@@ -94,7 +107,24 @@ public class LocationActivity extends AppCompatActivity {
         locationArray.add("중구");
         locationArray.add("중랑구");
 
-        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_location_item, locationArray);
+        ArrayAdapter<String> locationArrayAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.spinner_location_item, locationArray){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
+                ((TextView) v).setTypeface(textFont);
+                return v;
+            }
+
+            public View getDropDownView(int position,  View convertView,  ViewGroup parent) {
+                View v =super.getDropDownView(position, convertView, parent);
+                Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
+                ((TextView) v).setTypeface(textFont);
+                return v;
+            }
+        };
+
         locationArrayAdapter.setDropDownViewResource(R.layout.spinner_location_item);
         locationSpinner.setAdapter(locationArrayAdapter);
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
