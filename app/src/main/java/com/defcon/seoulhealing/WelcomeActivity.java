@@ -8,12 +8,14 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -26,14 +28,23 @@ public class WelcomeActivity extends AppCompatActivity {
     Button locationBtn;
     SharedPreferences prefs;
     SharedPreferences.Editor ed;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        Typeface textFont = Typeface.createFromAsset( getAssets(), "fonts/font_namsan.ttf" );
+
         doneBtn = findViewById(R.id.welcome_btn_done);
         locationBtn = findViewById(R.id.welcome_btn_locationPermission);
+        textView = findViewById(R.id.textView);
+
+        doneBtn.setTypeface(textFont);
+        locationBtn.setTypeface(textFont);
+        textView.setTypeface(textFont);
+
         setupLocationBtn();
         startActivityAnimation();
 
