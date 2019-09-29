@@ -109,4 +109,9 @@ public class WelcomeActivity extends AppCompatActivity {
         welcomeLayout.startAnimation(fadeIn);
         welcomeLocation.startAnimation(bounce);
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getApplicationContext(), "위치 권한을 먼저 허용해주세요!", Toast.LENGTH_SHORT).show();
+    }
 }
