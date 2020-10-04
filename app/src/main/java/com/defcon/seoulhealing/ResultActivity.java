@@ -55,6 +55,10 @@ public class ResultActivity extends AppCompatActivity{
 
         currentTheme = getIntent().getStringExtra("THEME");
         currentLocation = getIntent().getStringExtra("LOCATION");
+        
+        getIntent().getIntExtra
+
+
 
         switch(currentTheme){
             case "ACTIVITY":
