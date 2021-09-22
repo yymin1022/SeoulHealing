@@ -17,13 +17,13 @@
 
 ***
 
-### 링크
+### Links
 
 [Github](https://github.com/yymin1022/SeoulHealing)
 
 ***
 
-### 개발기간
+### History
 
 * 2020\. 09\. 개발 시작
 * 2020\. 10\. 개발 완료
